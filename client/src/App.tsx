@@ -7,19 +7,22 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import PublicRoute from "./guards/PublicRoute";
 import PrivateRoute from "./guards/PrivateRoute";
 import LinksPage from "./pages/LinksPage/LinksPage";
+import MainLayout from "./layouts/MainLayout/MainLayout";
 
 const App = () => {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <LinksPage />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/" element={<MainLayout />}>
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <LinksPage />
+              </PrivateRoute>
+            }
+          />
+        </Route>
 
         <Route element={<AuthLayout />}>
           <Route
