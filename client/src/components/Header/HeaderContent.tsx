@@ -1,11 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 
 import clsx from "clsx";
-import AuthLogo from "../Logo/Logo";
 import Icon from "../Icon/Icon";
-import Navigation from "../Navigation/Navigation";
-import PreviewNavigation from "../Navigation/PreviewNavigation/PreviewNavigation";
+import AuthLogo from "../Logo/Logo";
 import styles from "./Header.module.scss";
+import Navigation from "../Navigation/Navigation";
+import PreviewNavigation from "../PreviewNavigation/PreviewNavigation";
 
 const HeaderContent = () => {
   const location = useLocation();
