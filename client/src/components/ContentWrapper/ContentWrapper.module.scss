@@ -1,0 +1,7 @@
+@use "../../scss/utils/functions" as *;
+@use "../../scss/utils/variables" as var;
+
+.wrapper {
+  background-color: get-color("light-grey");
+  border-radius: var.$border-radius-xl;
+}
