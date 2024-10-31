@@ -8,9 +8,7 @@ linkRouter.use(authenticate);
 
 linkRouter.get("/", linkController.getAllLinks);
 
-linkRouter.post("/", isEmptyBody, linkController.createLink);
-
-linkRouter.patch("/", linkController.updateLinks);
+linkRouter.patch("/", isEmptyBody, linkController.updateOrCreateLinks);
 
 linkRouter.delete("/:linkId", isValidId, linkController.deleteLink);
 
