@@ -1,22 +1,27 @@
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useAppDispatch } from "./hooks/useRedux";
-import MainLayout from "./layouts/MainLayout/MainLayout";
+import { getLinks } from "./store/link/linkOperations";
+import { currentUser } from "./store/auth/authOperations";
 import { Route, Routes, useLocation } from "react-router-dom";
 
-import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import AuthLayout from "./layouts/AuthLayout/AuthLayout";
-import LoginPage from "./pages/LoginPage/LoginPage";
 import PublicRoute from "./guards/PublicRoute";
 import PrivateRoute from "./guards/PrivateRoute";
+import LoginPage from "./pages/LoginPage/LoginPage";
 import LinksPage from "./pages/LinksPage/LinksPage";
-import { getLinks } from "./store/link/linkOperations";
+import MainLayout from "./layouts/MainLayout/MainLayout";
+import AuthLayout from "./layouts/AuthLayout/AuthLayout";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
 const App = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
 
   const paths = ["/", "/profile", "/preview"].includes(pathname);
+
+  useEffect(() => {
+    dispatch(currentUser());
+  }, [dispatch]);
 
   useEffect(() => {
     if (paths) {

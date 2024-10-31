@@ -1,6 +1,5 @@
+import { AxiosResponse } from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-import instance from "../../services/axiosInstance";
 import {
   RegisterResponse,
   Error,
@@ -12,13 +11,15 @@ import {
 } from "../../types/auth";
 import { clearAuthHeader, setAuthHeader } from "../../services/axiosHeader";
 
+import instance from "../../services/axiosInstance";
+
 export const register = createAsyncThunk<
   RegisterResponse,
   RegisterData,
   { rejectValue: Error }
 >("auth/register", async (credentials, { rejectWithValue }) => {
   try {
-    const { data } = await instance.post<RegisterResponse>(
+    const { data }: AxiosResponse<RegisterResponse> = await instance.post(
       "/api/auth/register",
       credentials
     );
@@ -35,7 +36,7 @@ export const login = createAsyncThunk<
   { rejectValue: Error }
 >("auth/login", async (credentials, { rejectWithValue }) => {
   try {
-    const { data } = await instance.post<LoginResponse>(
+    const { data }: AxiosResponse<LoginResponse> = await instance.post(
       "/api/auth/login",
       credentials
     );
@@ -77,7 +78,10 @@ export const currentUser = createAsyncThunk<
 
   try {
     setAuthHeader(persistedToken);
-    const { data } = await instance.get("/api/auth/current");
+    const { data }: AxiosResponse<AuthResponse> = await instance.get(
+      "/api/auth/current"
+    );
+
     return data;
   } catch (error) {
     return rejectWithValue(error as Error);
