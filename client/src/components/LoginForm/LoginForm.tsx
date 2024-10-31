@@ -5,13 +5,16 @@ import { useAppDispatch } from "../../hooks/useRedux";
 import { login } from "../../store/auth/authOperations";
 
 import Input from "../Input/Input";
-import Button from "../Button/Button";
-import styles from "./LoginForm.module.scss";
-import authValidations from "../../utils/validations/authValidation";
 import toast from "react-hot-toast";
+import Button from "../Button/Button";
+import useAuth from "../../hooks/useAuth";
+import BtnLoader from "../Loader/BtnLoader";
+import styles from "./LoginForm.module.scss";
 import CustomToast from "../CustomToast/CustomToast";
+import authValidations from "../../utils/validations/authValidation";
 
 const LoginForm = () => {
+  const { isLoading } = useAuth();
   const dispatch = useAppDispatch();
 
   const {
@@ -103,9 +106,8 @@ const LoginForm = () => {
       </div>
 
       <Button
-        // title={isLoading ? <BtnLoader /> : "Login"}
-        // disabled={isLoading}
-        title={"Login"}
+        title={isLoading ? <BtnLoader /> : "Login"}
+        disabled={isLoading}
         variant={"primary"}
         type="submit"
       />
