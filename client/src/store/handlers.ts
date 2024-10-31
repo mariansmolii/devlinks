@@ -4,19 +4,20 @@ import {
   Error,
   RegisterResponse,
 } from "../types/auth";
+import { LinkState } from "../types/link";
 
-export const handleFulfilled = (state: AuthState) => {
+export const handleFulfilled = (state: AuthState | LinkState) => {
   state.isLoading = false;
   state.error = null;
 };
 
-export const handlePending = (state: AuthState) => {
+export const handlePending = (state: AuthState | LinkState) => {
   state.isLoading = true;
   state.error = null;
 };
 
 export const handleRejected = (
-  state: AuthState,
+  state: AuthState | LinkState,
   { payload }: { payload: Error }
 ) => {
   state.isLoading = false;
