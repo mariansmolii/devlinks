@@ -50,7 +50,7 @@ const Input = ({
   const errorStylePadding = getErrorStylePadding(
     width,
     isError,
-    errors[name]?.length
+    errors && errors[name]?.length
   );
 
   return (
