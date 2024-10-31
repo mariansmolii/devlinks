@@ -1,0 +1,8 @@
+@use "../../scss/utils/functions" as *;
+@use "../../scss/utils/mixins" as mx;
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
