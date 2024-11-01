@@ -7,7 +7,7 @@ const getLinkValidation = (platform: Platform): RegExp | "" => {
       /^https:\/\/(www\.)?frontendmentor\.io\/profile\/[a-zA-Z0-9_-]+$/,
     twitter: /^https:\/\/(www\.)?twitter\.com\/[a-zA-Z0-9_-]+$/,
     linkedin: /^https:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+$/,
-    youtube: /^https:\/\/(www\.)?youtube\.com\/user\/[a-zA-Z0-9_-]+$/,
+    youtube: /^https:\/\/(www\.)?youtube\.com\/@[\w-]+$/,
     facebook: /^https:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9_-]+$/,
     twitch: /^https:\/\/(www\.)?twitch\.tv\/[a-zA-Z0-9_-]+$/,
     codewars: /^https:\/\/(www\.)?codewars\.com\/users\/[a-zA-Z0-9_-]+$/,
