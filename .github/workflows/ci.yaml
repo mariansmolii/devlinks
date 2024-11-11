@@ -4,9 +4,15 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "client/**"
+      - "server/**"
   pull_request:
     branches:
       - main
+    paths:
+      - "client/**"
+      - "server/**"
     types: [opened, synchronize]
 
 jobs:
@@ -39,14 +45,14 @@ jobs:
               - "!client/.gitignore"
               - "!client/*.md"
               - "!client/.env.example"
-              - "!client/Dockerfile*"
+              - "!client/Dockerfile.dev"
               - "!client/.dockerignore"
             server: 
               - "server/**"
               - "!server/.gitignore"
               - "!server/*.md"
               - "!server/.env.example"
-              - "!server/Dockerfile*"
+              - "!server/Dockerfile.dev"
               - "!server/.dockerignore"
 
       - name: Set env for WORKDIR
