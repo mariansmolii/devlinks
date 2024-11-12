@@ -2,6 +2,8 @@ import cors from "cors";
 import pino from "pino-http";
 import express from "express";
 
+import authRouter from "./routers/api/auth-router.js";
+
 import { env } from "./utils/index.js";
 
 const PORT = env("PORT", 3000);
@@ -23,6 +25,8 @@ const startServer = () => {
       },
     })
   );
+
+  app.use("/api/auth", authRouter);
 
   app.use((req, res) => {
     res.status(404).json({ message: "Not found" });
