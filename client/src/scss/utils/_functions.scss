@@ -1,5 +1,6 @@
+@use "sass:map";
 @use "variables" as var;
 
 @function get-color($color) {
-  @return map-get(var.$colors, $color);
+  @return map.get(var.$colors, $color);
 }
