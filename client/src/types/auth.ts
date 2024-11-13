@@ -8,10 +8,6 @@ export interface AuthCredentials {
   password: string;
 }
 
-export interface RegisterCredentials extends AuthCredentials {
-  confirmPassword: string;
-}
-
 export interface RegisterResponse {
   user: Pick<User, "email">;
 }
