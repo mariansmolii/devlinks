@@ -1,0 +1,50 @@
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    container_name: devlinks-client
+    ports:
+      - "5555:5173"
+    env_file:
+      - ./client/.env.local
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    networks:
+      - devlinks-app
+    depends_on:
+      - server
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    container_name: devlinks-server
+    ports:
+      - "4444:1111"
+    env_file:
+      - ./server/.env
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    networks:
+      - devlinks-app
+    depends_on:
+      - db
+  db:
+    image: mongo:noble
+    container_name: devlinks-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - devlinks-app
+
+networks:
+  devlinks-app:
+    driver: bridge
+
+volumes:
+  mongodata:
+    driver: local
