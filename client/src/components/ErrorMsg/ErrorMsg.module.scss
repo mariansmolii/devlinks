@@ -1,0 +1,19 @@
+@use "../../scss/utils/mixins" as mx;
+@use "../../scss/utils/functions" as *;
+
+.error {
+  position: absolute;
+  bottom: 52px;
+  right: 0;
+
+  > p {
+    color: get-color("red");
+
+    @include mx.font-size(12, 18);
+  }
+
+  @include mx.breakpoint(tablet) {
+    bottom: 16px;
+    right: 16px;
+  }
+}

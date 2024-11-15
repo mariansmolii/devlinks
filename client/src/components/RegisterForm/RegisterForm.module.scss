@@ -1,0 +1,15 @@
+@use "../../scss/utils/mixins" as mx;
+
+.form {
+  margin-bottom: 24px;
+
+  > div {
+    position: relative;
+    margin-bottom: 24px;
+  }
+}
+
+.text {
+  @include mx.font-size(12, 18);
+  margin-bottom: 24px;
+}

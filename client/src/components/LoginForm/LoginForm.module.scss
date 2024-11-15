@@ -1,0 +1,10 @@
+@use "../../scss/utils/mixins" as mx;
+
+.form {
+  margin-bottom: 24px;
+
+  > div {
+    position: relative;
+    margin-bottom: 24px;
+  }
+}
