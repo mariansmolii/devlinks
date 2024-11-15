@@ -1,11 +1,8 @@
-import LinkPage from "./pages/LinkPage/LinkPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
 import AuthLayout from "./layouts/AuthLayout/AuthLayout";
-import MainLayout from "./layouts/MainLayout/MainLayout";
 
-import PrivateRoute from "./guards/PrivateRoute";
 import PublicRoute from "./guards/PublicRoute";
 
 import { useEffect } from "react";
@@ -24,7 +21,7 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<MainLayout />}>
+        {/* <Route path="/" element={<MainLayout />}>
           <Route
             index
             element={
@@ -33,7 +30,7 @@ const App = () => {
               </PrivateRoute>
             }
           />
-        </Route>
+        </Route> */}
 
         <Route element={<AuthLayout />}>
           <Route
