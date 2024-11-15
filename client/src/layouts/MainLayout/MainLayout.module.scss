@@ -1,0 +1,16 @@
+@use "../../scss/utils/mixins" as mx;
+
+.main {
+  padding-bottom: 16px;
+
+  @include mx.breakpoint(tablet) {
+    padding-bottom: 24px;
+  }
+}
+
+.container {
+  @include mx.breakpoint(desktop) {
+    display: flex;
+    gap: 24px;
+  }
+}
