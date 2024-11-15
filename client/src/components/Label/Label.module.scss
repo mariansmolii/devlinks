@@ -1,0 +1,14 @@
+@use "../../scss/utils/functions" as *;
+@use "../../scss/utils/mixins" as mx;
+
+.label {
+  display: block;
+  margin-bottom: 4px;
+  color: get-color("dark-grey");
+
+  @include mx.font-size(12, 18);
+
+  &.error {
+    color: get-color("red");
+  }
+}
