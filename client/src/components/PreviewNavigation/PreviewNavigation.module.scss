@@ -1,0 +1,41 @@
+@use "../../scss/utils/mixins" as mx;
+@use "../../scss/utils/variables" as var;
+@use "../../scss/utils/functions" as *;
+
+.list {
+  @include mx.flex-center-vert;
+  justify-content: space-between;
+  gap: 16px;
+  flex: 1;
+
+  > li {
+    > a {
+      @include mx.flex-center;
+
+      padding: 10px 27px;
+      height: 46px;
+      color: get-color("purple");
+      font-weight: 600;
+      border: 1px solid get-color("purple");
+      border-radius: var.$border-radius-md;
+      transition: background-color 300ms ease-in-out;
+
+      &:hover {
+        background-color: get-color("purple-light");
+      }
+
+      @media screen and (max-width: 350px) {
+        @include mx.font-size(13, 16);
+      }
+    }
+
+    > button {
+      height: 46px;
+      padding: 11px 27px;
+
+      @media screen and (max-width: 350px) {
+        @include mx.font-size(13, 16);
+      }
+    }
+  }
+}
