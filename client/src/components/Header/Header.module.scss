@@ -22,7 +22,12 @@
   }
 
   @include mx.breakpoint(tablet) {
-    margin: 24px 0px;
+    max-width: 720px;
+    margin: 24px auto;
+  }
+
+  @include mx.breakpoint(desktop) {
+    max-width: 1392px;
   }
 }
 
