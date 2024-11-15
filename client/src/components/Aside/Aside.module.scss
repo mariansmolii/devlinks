@@ -1,0 +1,49 @@
+@use "../../scss/utils/mixins" as mx;
+@use "../../scss/utils/variables" as var;
+@use "../../scss/utils/functions" as *;
+
+.aside {
+  display: none;
+  position: relative;
+  padding: 101.5px 126.5px;
+  background-color: get-color("white");
+  border-radius: var.$border-radius-xl;
+
+  @include mx.breakpoint(desktop) {
+    @include mx.flex-center;
+  }
+}
+
+.circle {
+  position: absolute;
+  top: 170px;
+  left: 231px;
+  width: 96px;
+  height: 96px;
+  border-radius: 100%;
+  background-color: get-color("very-light-grey");
+}
+
+.infoWrapper {
+  position: absolute;
+  top: 290px;
+  left: 201px;
+
+  @include mx.flex-center;
+  flex-direction: column;
+
+  > div:first-child {
+    width: 160px;
+    height: 16px;
+    background-color: get-color("very-light-grey");
+    border-radius: var.$border-radius-xxl;
+    margin-bottom: 13px;
+  }
+
+  > div:nth-child(2) {
+    width: 72px;
+    height: 8px;
+    background-color: get-color("very-light-grey");
+    border-radius: var.$border-radius-xxl;
+  }
+}

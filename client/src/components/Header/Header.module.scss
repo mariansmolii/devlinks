@@ -1,0 +1,65 @@
+@use "../../scss/utils/functions" as *;
+@use "../../scss/utils/variables" as var;
+@use "../../scss/utils/mixins" as mx;
+
+.container {
+  @include mx.breakpoint(mobile) {
+    display: none;
+  }
+}
+
+.header {
+  @include mx.flex-center-vert;
+  justify-content: space-between;
+  padding: 16px 16px 16px 24px;
+  background-color: get-color("white");
+  border-radius: var.$border-radius-xl;
+
+  @include mx.breakpoint(mobile) {
+    max-width: 375px;
+    margin: 0 auto;
+    margin-bottom: 16px;
+  }
+
+  @include mx.breakpoint(tablet) {
+    max-width: 720px;
+    margin: 24px auto;
+  }
+
+  @include mx.breakpoint(desktop) {
+    max-width: 1392px;
+  }
+}
+
+.navLink {
+  @include mx.flex-center-vert;
+
+  padding: 10px 15px;
+  font-weight: 600;
+  color: get-color("purple");
+  border-radius: var.$border-radius-md;
+  border: 1px solid get-color("purple");
+  transition: background-color 300ms ease-in-out;
+
+  @include mx.breakpoint(tablet) {
+    padding: 10px 26px;
+  }
+
+  &:hover {
+    background-color: get-color("purple-light");
+  }
+
+  > svg {
+    fill: currentColor;
+
+    @include mx.breakpoint(tablet) {
+      display: none;
+    }
+  }
+
+  > p {
+    @include mx.breakpoint(mobile) {
+      display: none;
+    }
+  }
+}

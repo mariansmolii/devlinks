@@ -1,0 +1,37 @@
+@use "../../scss/utils/mixins" as mx;
+@use "../../scss/utils/functions" as *;
+@use "../../scss/utils/variables" as var;
+
+.nav {
+  @include mx.flex-center-vert;
+
+  > li a {
+    padding: 11px 27px;
+    font-weight: 600;
+    color: get-color("grey");
+    transition: color 300ms ease-in-out;
+    border-radius: var.$border-radius-md;
+
+    @include mx.flex-center-vert;
+    gap: 8px;
+
+    &:hover {
+      color: get-color("purple");
+    }
+
+    > svg {
+      fill: currentColor;
+    }
+
+    > p {
+      @include mx.breakpoint(mobile) {
+        display: none;
+      }
+    }
+
+    &.active {
+      color: get-color("purple");
+      background-color: get-color("purple-light");
+    }
+  }
+}
