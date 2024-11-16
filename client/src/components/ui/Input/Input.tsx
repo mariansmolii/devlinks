@@ -12,10 +12,9 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   name: string;
   type: InputType;
-  value: string;
+  value?: string;
   placeholder?: string;
   iconName?: string;
-  pattern?: string;
   error?: string;
 }
 
@@ -28,7 +27,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       placeholder,
       value,
       iconName,
-      pattern,
       error,
       ...rest
     }: InputProps,
@@ -52,7 +50,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           type={type}
           value={value}
           placeholder={placeholder}
-          pattern={pattern}
           className={clsx({ [styles.error]: !!error })}
           style={{ paddingRight: errorStylePadding }}
           ref={ref}
