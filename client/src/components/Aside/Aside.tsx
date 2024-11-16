@@ -1,4 +1,4 @@
-import Icon from "../Icon/Icon";
+import Icon from "../ui/Icon/Icon";
 import styles from "./Aside.module.scss";
 
 const Aside = () => {

@@ -1,12 +1,12 @@
-import Input from "../Input/Input";
-import Label from "../Label/Label";
+import Input from "../ui/Input/Input";
+import Label from "../ui/Label/Label";
 import toast from "react-hot-toast";
-import Button from "../Button/Button";
+import Button from "../ui/Button/Button";
 import useAuth from "../../hooks/useAuth";
-import BtnLoader from "../Loader/BtnLoader";
 import ErrorMsg from "../ErrorMsg/ErrorMsg";
+import BtnLoader from "../ui/Loader/BtnLoader";
 import styles from "./RegisterForm.module.scss";
-import CustomToast from "../CustomToast/CustomToast";
+import CustomToast from "../ui/CustomToast/CustomToast";
 
 import { z } from "zod";
 import { Err } from "../../types/auth";

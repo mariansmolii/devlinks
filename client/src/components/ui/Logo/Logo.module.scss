@@ -1,5 +1,5 @@
-@use "../../scss/utils/mixins" as mx;
-@use "../../scss/utils/functions" as *;
+@use "../../../scss/utils/mixins" as mx;
+@use "../../../scss/utils/functions" as *;
 
 .logo {
   @include mx.flex-center-vert;
