@@ -3,7 +3,7 @@ import Input from "../ui/Input/Input";
 import Label from "../ui/Label/Label";
 import Button from "../ui/Button/Button";
 import useAuth from "../../hooks/useAuth";
-import ErrorMsg from "../ErrorMsg/ErrorMsg";
+import ErrorMsg from "../ui/ErrorMsg/ErrorMsg";
 import BtnLoader from "../ui/Loader/BtnLoader";
 import CustomToast from "../ui/CustomToast/CustomToast";
 import styles from "./LoginForm.module.scss";

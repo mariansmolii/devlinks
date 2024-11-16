@@ -3,7 +3,7 @@ import Label from "../ui/Label/Label";
 import toast from "react-hot-toast";
 import Button from "../ui/Button/Button";
 import useAuth from "../../hooks/useAuth";
-import ErrorMsg from "../ErrorMsg/ErrorMsg";
+import ErrorMsg from "../ui/ErrorMsg/ErrorMsg";
 import BtnLoader from "../ui/Loader/BtnLoader";
 import styles from "./RegisterForm.module.scss";
 import CustomToast from "../ui/CustomToast/CustomToast";
