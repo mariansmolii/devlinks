@@ -1,11 +1,11 @@
-import Input from "../Input/Input";
-import Label from "../Label/Label";
 import toast from "react-hot-toast";
-import Button from "../Button/Button";
+import Input from "../ui/Input/Input";
+import Label from "../ui/Label/Label";
+import Button from "../ui/Button/Button";
 import useAuth from "../../hooks/useAuth";
-import BtnLoader from "../Loader/BtnLoader";
 import ErrorMsg from "../ErrorMsg/ErrorMsg";
-import CustomToast from "../CustomToast/CustomToast";
+import BtnLoader from "../ui/Loader/BtnLoader";
+import CustomToast from "../ui/CustomToast/CustomToast";
 import styles from "./LoginForm.module.scss";
 
 import { z } from "zod";

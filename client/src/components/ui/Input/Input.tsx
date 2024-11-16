@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import Icon from "../Icon/Icon";
 import styles from "./Input.module.scss";
-import useScreenSize from "../../hooks/useScreenSize";
-import getErrorStylePadding from "../../utils/helpers/getErrorStylePadding";
+import useScreenSize from "../../../hooks/useScreenSize";
+import getErrorStylePadding from "../../../utils/helpers/getErrorStylePadding";
 
 import { forwardRef, InputHTMLAttributes } from "react";
 

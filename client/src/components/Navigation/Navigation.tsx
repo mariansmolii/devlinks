@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import Icon from "../Icon/Icon";
+import Icon from "../ui/Icon/Icon";
 import styles from "./Navigation.module.scss";
 import navLinks from "../../utils/data/navLinks";
 

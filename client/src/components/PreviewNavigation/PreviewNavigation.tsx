@@ -1,4 +1,4 @@
-import Button from "../Button/Button";
+import Button from "../ui/Button/Button";
 import styles from "./PreviewNavigation.module.scss";
 
 import { useRef } from "react";
