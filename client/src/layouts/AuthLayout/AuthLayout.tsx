@@ -1,6 +1,6 @@
-import Logo from "../../components/Logo/Logo";
-import Container from "../../components/Container/Container";
+import Logo from "../../components/ui/Logo/Logo";
 import InfoPanel from "../../components/InfoPanel/InfoPanel";
+import Container from "../../components/Container/Container";
 import AuthPrompt from "../../components/AuthPrompt/AuthPrompt";
 import styles from "./AuthLayout.module.scss";
 
