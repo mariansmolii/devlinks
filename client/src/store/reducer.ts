@@ -1,5 +1,6 @@
 import { AuthState } from "../types/auth";
 import { authReducer } from "./auth/authSlice";
+import { linkReducer } from "./link/linkSlice";
 import { combineReducers } from "@reduxjs/toolkit";
 
 import storage from "redux-persist/lib/storage";
@@ -15,6 +16,7 @@ const persistedReducer = persistReducer<AuthState>(persistConfig, authReducer);
 
 export const reducer = combineReducers({
   auth: persistedReducer,
+  link: linkReducer,
 });
 
 export type RootState = ReturnType<typeof reducer>;
