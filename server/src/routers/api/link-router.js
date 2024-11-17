@@ -12,7 +12,7 @@ import {
 
 const linkRouter = express.Router();
 
-const linkValidate = validateBody(linkSchema.linkSchema);
+const linkValidate = validateBody(linkSchema);
 
 linkRouter.use(authenticate);
 
