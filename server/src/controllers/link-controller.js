@@ -45,15 +45,19 @@ const saveLinks = async (req, res) => {
 
 const deleteLink = async (req, res) => {
   const { _id: owner } = req.user;
-  const { linkId } = req.params;
+  const { linkIds } = req.body;
 
-  const result = await Link.findOneAndDelete({ _id: linkId, owner });
-
-  if (!result) {
-    throw HttpError(404);
+  if (!Array.isArray(linkIds) || linkIds.length === 0) {
+    throw HttpError(400, "No links Ids provided or invalid data");
   }
 
-  res.json({ message: "Link deleted" });
+  const result = await Link.deleteMany({ _id: { $in: linkIds }, owner });
+
+  if (result.deletedCount === 0) {
+    throw HttpError(404, "No links found");
+  }
+
+  res.json({ message: "Links deleted" });
 };
 
 export default {
