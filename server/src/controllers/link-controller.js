@@ -16,7 +16,7 @@ const saveLinks = async (req, res) => {
   const { links } = req.body;
 
   if (!Array.isArray(links)) {
-    throw new HttpError(400, "Invalid data");
+    throw HttpError(400, "Invalid data");
   }
 
   const bulkOps = links.map(({ _id, index, platform, url }) => {
@@ -50,7 +50,7 @@ const deleteLink = async (req, res) => {
   const result = await Link.findOneAndDelete({ _id: linkId, owner });
 
   if (!result) {
-    throw new HttpError(404);
+    throw HttpError(404);
   }
 
   res.json({ message: "Link deleted" });
