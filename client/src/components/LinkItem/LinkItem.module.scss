@@ -1,0 +1,46 @@
+@use "../../scss/utils/functions" as *;
+@use "../../scss/utils/mixins" as mx;
+@use "../../scss/utils/variables" as var;
+
+.item {
+  padding: 20px;
+  background-color: get-color("light-grey");
+  border-radius: var.$border-radius-xl;
+}
+
+.wrapper {
+  @include mx.flex-center-vert;
+  justify-content: space-between;
+  margin-bottom: 12px;
+
+  > div {
+    @include mx.flex-center-vert;
+    gap: 8px;
+    cursor: grabbing;
+
+    > svg {
+      fill: get-color("grey");
+    }
+
+    > p {
+      font-weight: 700;
+    }
+  }
+
+  > button {
+    cursor: pointer;
+    border: none;
+
+    &:hover {
+      color: get-color("purple");
+    }
+  }
+}
+
+.selectWrapper {
+  margin-bottom: 12px;
+}
+
+.inputWrapper {
+  position: relative;
+}
