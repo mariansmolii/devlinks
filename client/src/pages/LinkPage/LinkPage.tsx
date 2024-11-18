@@ -1,12 +1,15 @@
+import toast from "react-hot-toast";
 import useLink from "../../hooks/useLink";
 import options from "../../utils/data/selectData";
 import Button from "../../components/ui/Button/Button";
 import Section from "../../components/Section/Section";
 import LinkForm from "../../components/LinkForm/LinkForm";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import CustomToast from "../../components/ui/CustomToast/CustomToast";
 import styles from "./LinkPage.module.scss";
 
 import { nanoid } from "nanoid";
+import { Err } from "../../types/auth";
 import { useEffect, useState } from "react";
 import { FormValues } from "../../types/link";
 import { useAppDispatch } from "../../hooks/useRedux";
@@ -59,25 +62,43 @@ const LinkPage = () => {
     dispatch(addNewLink(newLink));
   };
 
-  const onSubmit = () => {
-    const sanitizedLinks = links.map((link) => {
-      if (link._id?.length === 21) {
-        const { url, platform, index } = link;
+  const onSubmit = async () => {
+    try {
+      const sanitizedLinks = links.map((link) => {
+        if (link._id?.length === 21) {
+          const { url, platform, index } = link;
 
-        return {
-          url,
-          platform,
-          index,
-        };
+          return {
+            url,
+            platform,
+            index,
+          };
+        }
+
+        return link;
+      });
+
+      if (sanitizedLinks.length > 0) {
+        await dispatch(saveLinks({ links: sanitizedLinks })).unwrap();
       }
 
-      return link;
-    });
+      if (deletedLinkIds.length > 0) {
+        await dispatch(removeLink({ linkIds: deletedLinkIds })).unwrap();
+      }
 
-    dispatch(saveLinks({ links: sanitizedLinks }));
+      toast.custom((t) => (
+        <CustomToast
+          t={t}
+          text="Your changes have been successfully saved!"
+          icon={"icon-changes-saved"}
+        />
+      ));
+    } catch (error) {
+      const err = error as Err;
 
-    if (deletedLinkIds.length > 0) {
-      dispatch(removeLink({ linkIds: deletedLinkIds }));
+      toast.custom((t) => (
+        <CustomToast t={t} text={`${err?.message}!`} icon={"warning"} />
+      ));
     }
   };
 
