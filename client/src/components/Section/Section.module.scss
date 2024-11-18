@@ -1,0 +1,18 @@
+@use "../../scss/utils/mixins" as mx;
+@use "../../scss/utils/functions" as *;
+@use "../../scss/utils/variables" as var;
+
+.section {
+  padding: 24px;
+  background-color: get-color("white");
+  border-radius: var.$border-radius-xl;
+
+  @include mx.breakpoint(tablet) {
+    padding: 40px;
+    padding-bottom: 24px;
+  }
+
+  @include mx.breakpoint(desktop) {
+    flex: 1;
+  }
+}
