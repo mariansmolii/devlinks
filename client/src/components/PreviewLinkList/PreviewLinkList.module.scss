@@ -1,0 +1,41 @@
+@use "../../scss/utils/mixins" as mx;
+@use "../../scss/utils/functions" as *;
+@use "../../scss/utils/variables" as var;
+
+.list {
+  position: absolute;
+  top: 380px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 237px;
+}
+
+.item {
+  padding: 13px 16px;
+  border-radius: var.$border-radius-md;
+
+  > a {
+    @include mx.flex-center-vert;
+    justify-content: space-between;
+
+    > div {
+      @include mx.flex-center-vert;
+      gap: 8px;
+
+      > svg {
+        fill: get-color("white");
+      }
+
+      > p {
+        color: get-color("white");
+        @include mx.font-size(12, 18);
+      }
+    }
+
+    > svg {
+      fill: get-color("white");
+    }
+  }
+}
