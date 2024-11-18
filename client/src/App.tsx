@@ -1,27 +1,40 @@
+import LinkPage from "./pages/LinkPage/LinkPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
 import AuthLayout from "./layouts/AuthLayout/AuthLayout";
+import MainLayout from "./layouts/MainLayout/MainLayout";
 
+import PrivateRoute from "./guards/PrivateRoute";
 import PublicRoute from "./guards/PublicRoute";
 
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import { Route, Routes } from "react-router-dom";
 import { useAppDispatch } from "./hooks/useRedux";
+import { getLinks } from "./store/link/linkOperations";
 import { currentUser } from "./store/auth/authOperations";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 const App = () => {
   const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
+
+  const paths = ["/", "profile", "preview"].includes(pathname);
 
   useEffect(() => {
     dispatch(currentUser());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (paths) {
+      dispatch(getLinks());
+    }
+  }, [dispatch, paths]);
+
   return (
     <>
       <Routes>
-        {/* <Route path="/" element={<MainLayout />}>
+        <Route path="/" element={<MainLayout />}>
           <Route
             index
             element={
@@ -30,7 +43,7 @@ const App = () => {
               </PrivateRoute>
             }
           />
-        </Route> */}
+        </Route>
 
         <Route element={<AuthLayout />}>
           <Route

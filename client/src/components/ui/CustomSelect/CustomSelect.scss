@@ -1,0 +1,132 @@
+@use "../../../scss/utils/functions" as *;
+@use "../../../scss/utils/mixins" as mx;
+@use "../../../scss/utils/variables" as var;
+
+.custom-select__control {
+  border-radius: var.$border-radius-md !important;
+  border: 1px solid get-color("border") !important;
+  background-color: get-color("white") !important;
+  outline: none !important;
+  transition: border-color 300ms ease-in-out, box-shadow 300ms ease-in-out !important;
+  padding: 11px 16px;
+
+  &:focus-within {
+    border-color: get-color("purple") !important;
+    box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25) !important;
+  }
+
+  &:hover {
+    border-color: get-color("purple") !important;
+    box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25) !important;
+  }
+}
+
+.custom-select__value-container {
+  padding: 0 !important;
+}
+
+.custom-select__single-value {
+  margin: 0 !important;
+
+  @include mx.flex-center-vert;
+  gap: 12px;
+
+  > span {
+    @include mx.font-size(16, 24);
+    color: get-color("dark-grey") !important;
+  }
+
+  > svg {
+    fill: get-color("grey");
+  }
+}
+
+.custom-select__indicator-separator {
+  display: none;
+}
+
+.custom-select__indicator {
+  padding: 0 !important;
+  padding-left: 12px !important;
+  transform: rotate(0deg);
+}
+
+.custom-select__dropdown-indicator {
+  > svg {
+    fill: get-color("purple") !important;
+    transition: transform 300ms ease-in-out;
+  }
+}
+
+.custom-select__control {
+  &--menu-is-open {
+    .custom-select__indicator {
+      > svg {
+        transform: rotate(180deg);
+        transition: transform 300ms ease-in-out;
+      }
+    }
+  }
+}
+
+.custom-select {
+  &__menu {
+    margin-bottom: 0px !important;
+    border-radius: var.$border-radius-md !important;
+    border: 1px solid get-color("border") !important;
+    box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.1) !important;
+
+    padding: 12px 16px !important;
+
+    &-list {
+      padding: 0 !important;
+    }
+  }
+}
+
+.custom-select__option {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px;
+
+  padding: 12px 0px !important;
+  border-bottom: 1px solid get-color("border");
+
+  &:active {
+    background-color: transparent !important;
+  }
+
+  &:first-child {
+    padding-top: 0 !important;
+  }
+
+  &:last-child {
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+  }
+
+  &--is-focused {
+    background-color: transparent !important;
+  }
+
+  &--is-selected {
+    background-color: transparent !important;
+
+    > span {
+      color: get-color("purple") !important;
+    }
+
+    > svg {
+      fill: get-color("purple") !important;
+    }
+  }
+
+  > span {
+    @include mx.font-size(16, 24);
+    color: get-color("dark-grey");
+  }
+
+  > svg {
+    fill: get-color("grey");
+  }
+}

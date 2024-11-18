@@ -1,0 +1,45 @@
+@use "../../scss/utils/mixins" as mx;
+@use "../../scss/utils/functions" as *;
+
+.instruction {
+  padding: 46.5px 20px;
+  margin-bottom: 24px;
+  text-align: center;
+
+  @include mx.breakpoint(tablet) {
+    padding: 82.5px 76.5px;
+    margin-bottom: 40px;
+  }
+
+  @include mx.breakpoint(desktop) {
+    padding: 62.5px 120px;
+  }
+
+  > svg {
+    display: block;
+    margin: 0 auto 24px;
+
+    @include mx.breakpoint(tablet) {
+      width: 250px;
+      height: 160px;
+      margin-bottom: 40px;
+    }
+  }
+
+  > h2 {
+    margin-bottom: 24px;
+
+    @include mx.font-size(24, 36);
+    color: get-color("dark-grey");
+    font-weight: 700;
+    text-align: center;
+
+    @include mx.breakpoint(tablet) {
+      @include mx.font-size(32, 48);
+    }
+  }
+
+  > p {
+    text-align: center;
+  }
+}
