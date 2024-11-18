@@ -4,6 +4,7 @@ export const linkSchema = Joi.object({
   links: Joi.array()
     .items(
       Joi.object({
+        _id: Joi.string(),
         url: Joi.string().uri().required(),
         platform: Joi.object({
           value: Joi.string().required(),
@@ -12,6 +13,7 @@ export const linkSchema = Joi.object({
           color: Joi.string().required(),
         }).required(),
         index: Joi.number().integer().min(0).required(),
+        owner: Joi.string(),
       })
     )
     .min(1)
