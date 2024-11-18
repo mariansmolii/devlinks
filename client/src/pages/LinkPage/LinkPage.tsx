@@ -86,6 +86,8 @@ const LinkPage = () => {
         await dispatch(removeLink({ linkIds: deletedLinkIds })).unwrap();
       }
 
+      setDeletedLinkIds([]);
+
       toast.custom((t) => (
         <CustomToast
           t={t}
