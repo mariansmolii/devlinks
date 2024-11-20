@@ -16,6 +16,7 @@ import {
   FieldErrors,
   SubmitHandler,
   UseFieldArrayRemove,
+  UseFormGetValues,
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
@@ -44,6 +45,7 @@ interface LinkFormProps {
   errors: FieldErrors<FormValues>;
   onSubmit: SubmitHandler<FormValues>;
   register: UseFormRegister<FormValues>;
+  getValues: UseFormGetValues<FormValues>;
   handleSubmit: UseFormHandleSubmit<FormValues>;
   setDeletedLinkIds: Dispatch<SetStateAction<string[]>>;
   fields: FieldArrayWithId<FormValues, "links", "keyId">[];
@@ -59,6 +61,7 @@ const LinkForm = ({
   errors,
   setDeletedLinkIds,
   deletedLinkIds,
+  getValues,
 }: LinkFormProps) => {
   const { isLoading } = useLink();
   const dispatch = useAppDispatch();
@@ -121,6 +124,7 @@ const LinkForm = ({
                   handleSelectChange={handleSelectChange}
                   handleInputChange={handleInputChange}
                   errors={errors}
+                  getValues={getValues}
                 />
               ))}
             </SortableContext>
