@@ -10,8 +10,8 @@ import styles from "./LinkPage.module.scss";
 
 import { nanoid } from "nanoid";
 import { Err } from "../../types/auth";
-import { useEffect, useState } from "react";
 import { FormValues } from "../../types/link";
+import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addNewLink } from "../../store/link/linkSlice";
@@ -35,9 +35,7 @@ const LinkPage = () => {
   } = useForm<FormValues>({
     resolver: zodResolver(linkValidation),
     mode: "onChange",
-    defaultValues: {
-      links: [],
-    },
+    defaultValues: useMemo(() => ({ links }), [links]),
   });
 
   const { fields, append, remove } = useFieldArray({
