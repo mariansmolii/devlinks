@@ -38,6 +38,7 @@ const LinkPage = () => {
       links: [],
     },
   });
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "links",
@@ -78,12 +79,12 @@ const LinkPage = () => {
         return link;
       });
 
-      if (sanitizedLinks.length > 0) {
-        await dispatch(saveLinks({ links: sanitizedLinks })).unwrap();
-      }
-
       if (deletedLinkIds.length > 0) {
         await dispatch(removeLink({ linkIds: deletedLinkIds })).unwrap();
+      }
+
+      if (sanitizedLinks.length > 0) {
+        await dispatch(saveLinks({ links: sanitizedLinks })).unwrap();
       }
 
       setDeletedLinkIds([]);
