@@ -8,6 +8,8 @@ import getLinkPlaceholder from "../../utils/helpers/getLinkPlaceholder";
 import styles from "./LinkItem.module.scss";
 
 import { useState } from "react";
+import { CSS } from "@dnd-kit/utilities";
+import { useSortable } from "@dnd-kit/sortable";
 import { FormValues, Platform } from "../../types/link";
 import {
   Control,
@@ -43,10 +45,18 @@ const LinkItem = ({
     null
   );
 
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: keyId });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
-    <li className={styles.item}>
+    <li className={styles.item} ref={setNodeRef} style={style}>
       <div className={styles.wrapper}>
-        <div>
+        <div {...attributes} {...listeners}>
           <Icon w={12} h={6} iconName="icon-drag-and-drop" />
           <p>Link #{index + 1}</p>
         </div>
