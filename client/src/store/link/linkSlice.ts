@@ -1,3 +1,4 @@
+import { arrayMove } from "@dnd-kit/sortable";
 import { getLinks, saveLinks } from "./linkOperations";
 import { Link, LinkState, Platform } from "../../types/link";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -42,6 +43,19 @@ const linkSlice = createSlice({
         (linkToUpdate[field] as typeof value) = value;
       }
     },
+    reorderLinks: (
+      state,
+      { payload }: PayloadAction<{ oldIndex: number; newIndex: number }>
+    ) => {
+      const { oldIndex, newIndex } = payload;
+
+      state.links = arrayMove(state.links, oldIndex, newIndex);
+
+      state.links = state.links.map((link, index) => ({
+        ...link,
+        index,
+      }));
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -64,4 +78,5 @@ const linkSlice = createSlice({
 });
 
 export const linkReducer = linkSlice.reducer;
-export const { addNewLink, removeLinkLocal, updateLink } = linkSlice.actions;
+export const { addNewLink, removeLinkLocal, updateLink, reorderLinks } =
+  linkSlice.actions;
