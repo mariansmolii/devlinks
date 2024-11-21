@@ -6,6 +6,7 @@ import LinkInstruction from "../LinkInstruction/LinkInstruction";
 import styles from "./LinkForm.module.scss";
 
 import {
+  addDeletedLinkId,
   removeLinkLocal,
   reorderLinks,
   updateLink,
@@ -16,6 +17,7 @@ import {
   FieldErrors,
   SubmitHandler,
   UseFieldArrayRemove,
+  UseFormGetValues,
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
@@ -32,20 +34,18 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-import { Dispatch, SetStateAction } from "react";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { FormValues, Platform } from "../../types/link";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 
 interface LinkFormProps {
-  deletedLinkIds: string[];
   remove: UseFieldArrayRemove;
   control: Control<FormValues>;
   errors: FieldErrors<FormValues>;
   onSubmit: SubmitHandler<FormValues>;
   register: UseFormRegister<FormValues>;
+  getValues: UseFormGetValues<FormValues>;
   handleSubmit: UseFormHandleSubmit<FormValues>;
-  setDeletedLinkIds: Dispatch<SetStateAction<string[]>>;
   fields: FieldArrayWithId<FormValues, "links", "keyId">[];
 }
 
@@ -57,17 +57,18 @@ const LinkForm = ({
   handleSubmit,
   control,
   errors,
-  setDeletedLinkIds,
-  deletedLinkIds,
+  getValues,
 }: LinkFormProps) => {
-  const { isLoading } = useLink();
   const dispatch = useAppDispatch();
+  const { isLoading, deletedLinkIds } = useLink();
 
   const handleRemove = (index: number, id: string) => {
     remove(index);
     dispatch(removeLinkLocal(id));
 
-    setDeletedLinkIds((prev) => (id.length === 24 ? [...prev, id] : prev));
+    if (id.length === 24) {
+      dispatch(addDeletedLinkId(id));
+    }
   };
 
   const handleSelectChange = (id: string, value: Platform) => {
@@ -121,6 +122,7 @@ const LinkForm = ({
                   handleSelectChange={handleSelectChange}
                   handleInputChange={handleInputChange}
                   errors={errors}
+                  getValues={getValues}
                 />
               ))}
             </SortableContext>

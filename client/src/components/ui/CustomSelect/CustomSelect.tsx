@@ -54,6 +54,7 @@ const CustomSelect = forwardRef<SelectInstance, CustomSelectProps>(
         }}
         components={{ Option, SingleValue: SingleValueComponent }}
         ref={ref as Ref<SelectInstance<Platform, false, GroupBase<Platform>>>}
+        menuPortalTarget={document.body}
         {...rest}
       />
     );

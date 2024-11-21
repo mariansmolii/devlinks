@@ -6,6 +6,7 @@
   padding: 20px;
   background-color: get-color("light-grey");
   border-radius: var.$border-radius-xl;
+  touch-action: none;
 }
 
 .wrapper {

@@ -24,6 +24,7 @@ export interface FormValues {
 
 export interface LinkState {
   links: Link[];
+  deletedLinkIds: string[];
   isLoading: boolean;
   error: Err | null;
 }

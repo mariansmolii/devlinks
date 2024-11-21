@@ -7,7 +7,6 @@ import CustomSelect from "../ui/CustomSelect/CustomSelect";
 import getLinkPlaceholder from "../../utils/helpers/getLinkPlaceholder";
 import styles from "./LinkItem.module.scss";
 
-import { useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
 import { FormValues, Platform } from "../../types/link";
@@ -15,6 +14,7 @@ import {
   Control,
   Controller,
   FieldErrors,
+  UseFormGetValues,
   UseFormRegister,
 } from "react-hook-form";
 
@@ -25,6 +25,7 @@ interface LinkItemProps {
   control: Control<FormValues>;
   errors: FieldErrors<FormValues>;
   register: UseFormRegister<FormValues>;
+  getValues: UseFormGetValues<FormValues>;
   handleRemove: (index: number, id: string) => void;
   handleInputChange: (id: string, value: string) => void;
   handleSelectChange: (id: string, value: Platform) => void;
@@ -37,14 +38,11 @@ const LinkItem = ({
   errors,
   control,
   register,
+  getValues,
   handleRemove,
   handleSelectChange,
   handleInputChange,
 }: LinkItemProps) => {
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
-    null
-  );
-
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: keyId });
 
@@ -78,7 +76,6 @@ const LinkItem = ({
               {...field}
               onChange={(value) => {
                 handleSelectChange(id, value ?? options[0]);
-                setSelectedPlatform(value);
                 field.onChange(value);
               }}
             />
@@ -99,7 +96,7 @@ const LinkItem = ({
           iconName="icon-link"
           {...register(`links.${index}.url`)}
           onBlur={(e) => handleInputChange(id, e.target.value.trim())}
-          placeholder={getLinkPlaceholder(selectedPlatform ?? options[0])}
+          placeholder={getLinkPlaceholder(getValues().links[index].platform)}
           error={errors.links?.[index]?.url?.message}
         />
 

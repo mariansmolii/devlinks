@@ -10,34 +10,32 @@ import styles from "./LinkPage.module.scss";
 
 import { nanoid } from "nanoid";
 import { Err } from "../../types/auth";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { FormValues } from "../../types/link";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addNewLink } from "../../store/link/linkSlice";
+import { addNewLink, clearDeletedLinkIds } from "../../store/link/linkSlice";
 import { useFieldArray, useForm } from "react-hook-form";
 import { linkValidation } from "../../utils/validations/link";
 import { removeLink, saveLinks } from "../../store/link/linkOperations";
 
 const LinkPage = () => {
-  const { links } = useLink();
   const dispatch = useAppDispatch();
-
-  const [deletedLinkIds, setDeletedLinkIds] = useState<string[]>([]);
+  const { links, deletedLinkIds } = useLink();
 
   const {
     control,
     handleSubmit,
     register,
     reset,
+    getValues,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(linkValidation),
     mode: "onChange",
-    defaultValues: {
-      links: [],
-    },
+    defaultValues: useMemo(() => ({ links }), [links]),
   });
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "links",
@@ -78,15 +76,15 @@ const LinkPage = () => {
         return link;
       });
 
-      if (sanitizedLinks.length > 0) {
-        await dispatch(saveLinks({ links: sanitizedLinks })).unwrap();
-      }
-
       if (deletedLinkIds.length > 0) {
         await dispatch(removeLink({ linkIds: deletedLinkIds })).unwrap();
       }
 
-      setDeletedLinkIds([]);
+      if (sanitizedLinks.length > 0) {
+        await dispatch(saveLinks({ links: sanitizedLinks })).unwrap();
+      }
+
+      dispatch(clearDeletedLinkIds());
 
       toast.custom((t) => (
         <CustomToast
@@ -127,8 +125,7 @@ const LinkPage = () => {
         handleSubmit={handleSubmit}
         control={control}
         errors={errors}
-        setDeletedLinkIds={setDeletedLinkIds}
-        deletedLinkIds={deletedLinkIds}
+        getValues={getValues}
       />
     </Section>
   );

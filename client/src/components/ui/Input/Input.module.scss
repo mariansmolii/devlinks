@@ -17,6 +17,7 @@
     border-radius: var.$border-radius-md;
     border: 1px solid get-color("border");
     color: get-color("dark-grey");
+    caret-color: get-color("purple");
     transition: border-color 300ms ease-in-out, box-shadow 300ms ease-in-out;
 
     &:hover,
@@ -32,6 +33,7 @@
 
     &.error {
       border-color: get-color("red");
+      caret-color: get-color("red");
       box-shadow: none;
       transition: border-color 0ms ease-in-out;
 

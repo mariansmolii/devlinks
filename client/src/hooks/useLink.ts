@@ -1,5 +1,6 @@
 import { useAppSelector } from "./useRedux";
 import {
+  selectDeletedLinkIds,
   selectError,
   selectIsLoading,
   selectLinks,
@@ -7,10 +8,11 @@ import {
 
 const useLink = () => {
   const links = useAppSelector(selectLinks);
+  const deletedLinkIds = useAppSelector(selectDeletedLinkIds);
   const isLoading = useAppSelector(selectIsLoading);
   const error = useAppSelector(selectError);
 
-  return { links, isLoading, error };
+  return { links, deletedLinkIds, isLoading, error };
 };
 
 export default useLink;
