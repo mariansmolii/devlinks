@@ -10,20 +10,18 @@ import styles from "./LinkPage.module.scss";
 
 import { nanoid } from "nanoid";
 import { Err } from "../../types/auth";
+import { useEffect, useMemo } from "react";
 import { FormValues } from "../../types/link";
-import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addNewLink } from "../../store/link/linkSlice";
+import { addNewLink, clearDeletedLinkIds } from "../../store/link/linkSlice";
 import { useFieldArray, useForm } from "react-hook-form";
 import { linkValidation } from "../../utils/validations/link";
 import { removeLink, saveLinks } from "../../store/link/linkOperations";
 
 const LinkPage = () => {
-  const { links } = useLink();
   const dispatch = useAppDispatch();
-
-  const [deletedLinkIds, setDeletedLinkIds] = useState<string[]>([]);
+  const { links, deletedLinkIds } = useLink();
 
   const {
     control,
@@ -86,7 +84,7 @@ const LinkPage = () => {
         await dispatch(saveLinks({ links: sanitizedLinks })).unwrap();
       }
 
-      setDeletedLinkIds([]);
+      dispatch(clearDeletedLinkIds());
 
       toast.custom((t) => (
         <CustomToast
@@ -127,8 +125,6 @@ const LinkPage = () => {
         handleSubmit={handleSubmit}
         control={control}
         errors={errors}
-        setDeletedLinkIds={setDeletedLinkIds}
-        deletedLinkIds={deletedLinkIds}
         getValues={getValues}
       />
     </Section>
