@@ -6,6 +6,7 @@ import { handleFulfilled, handlePending, handleRejected } from "../handlers";
 
 const initialState: LinkState = {
   links: [],
+  deletedLinkIds: [],
   isLoading: false,
   error: null,
 };
@@ -56,6 +57,12 @@ const linkSlice = createSlice({
         index,
       }));
     },
+    addDeletedLinkId: (state, { payload }: PayloadAction<string>) => {
+      state.deletedLinkIds.push(payload);
+    },
+    clearDeletedLinkIds: (state) => {
+      state.deletedLinkIds = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -78,5 +85,11 @@ const linkSlice = createSlice({
 });
 
 export const linkReducer = linkSlice.reducer;
-export const { addNewLink, removeLinkLocal, updateLink, reorderLinks } =
-  linkSlice.actions;
+export const {
+  addNewLink,
+  removeLinkLocal,
+  updateLink,
+  reorderLinks,
+  addDeletedLinkId,
+  clearDeletedLinkIds,
+} = linkSlice.actions;
