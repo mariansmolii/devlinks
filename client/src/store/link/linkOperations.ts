@@ -1,6 +1,6 @@
 import instance from "../../services/axiosHeader";
+import handleAxiosError from "../../utils/helpers/handleAxiosError";
 
-import { isAxiosError } from "axios";
 import {
   FormValues,
   LinkIds,
@@ -29,13 +29,7 @@ export const getLinks = createAsyncThunk<
 
     return data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return rejectWithValue(error?.response?.data);
-    }
-
-    return rejectWithValue({
-      message: "An error occurred. Please try again.",
-    });
+    return rejectWithValue(handleAxiosError<Err>(error));
   }
 });
 
@@ -61,13 +55,7 @@ export const saveLinks = createAsyncThunk<
 
     return data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return rejectWithValue(error?.response?.data);
-    }
-
-    return rejectWithValue({
-      message: "An error occurred. Please try again.",
-    });
+    return rejectWithValue(handleAxiosError<Err>(error));
   }
 });
 
@@ -93,12 +81,6 @@ export const removeLink = createAsyncThunk<
 
     return data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return rejectWithValue(error?.response?.data);
-    }
-
-    return rejectWithValue({
-      message: "An error occurred. Please try again.",
-    });
+    return rejectWithValue(handleAxiosError<Err>(error));
   }
 });
