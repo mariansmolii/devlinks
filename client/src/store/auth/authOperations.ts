@@ -1,4 +1,5 @@
 import instance from "../../services/axiosHeader";
+import handleAxiosError from "../../utils/helpers/handleAxiosError";
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
@@ -9,7 +10,6 @@ import {
   CurrentUserResponse,
   AuthState,
 } from "../../types/auth";
-import { isAxiosError } from "axios";
 import { clearAuthHeader, setAuthHeader } from "../../services/axiosInstance";
 
 export const register = createAsyncThunk<
@@ -27,11 +27,7 @@ export const register = createAsyncThunk<
 
     return data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return rejectWithValue(error?.response?.data);
-    }
-
-    return rejectWithValue({ message: "An error occurred. Please try again." });
+    return rejectWithValue(handleAxiosError<Err>(error));
   }
 });
 
@@ -54,11 +50,7 @@ export const login = createAsyncThunk<
 
     return data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return rejectWithValue(error?.response?.data);
-    }
-
-    return rejectWithValue({ message: "An error occurred. Please try again." });
+    return rejectWithValue(handleAxiosError<Err>(error));
   }
 });
 
@@ -73,13 +65,7 @@ export const logOut = createAsyncThunk<
     await instance.post("/api/auth/logout");
     clearAuthHeader();
   } catch (error) {
-    if (isAxiosError(error)) {
-      return rejectWithValue(error?.response?.data);
-    }
-
-    return rejectWithValue({
-      message: "An error occurred. Please try again.",
-    });
+    return rejectWithValue(handleAxiosError<Err>(error));
   }
 });
 
@@ -104,12 +90,6 @@ export const currentUser = createAsyncThunk<
 
     return data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return rejectWithValue(error?.response?.data);
-    }
-
-    return rejectWithValue({
-      message: "An error occurred. Please try again.",
-    });
+    return rejectWithValue(handleAxiosError<Err>(error));
   }
 });

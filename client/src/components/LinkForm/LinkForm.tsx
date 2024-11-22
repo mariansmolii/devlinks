@@ -99,7 +99,7 @@ const LinkForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       {fields.length === 0 ? (
         <LinkInstruction />
       ) : (
@@ -136,7 +136,6 @@ const LinkForm = ({
         <Button
           type="submit"
           variant={"primary"}
-          className={styles.btn}
           title={isLoading ? <BtnLoader /> : "Save"}
           disabled={
             (fields.length === 0 && deletedLinkIds.length === 0) || isLoading
