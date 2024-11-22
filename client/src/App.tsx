@@ -1,6 +1,7 @@
 import LinkPage from "./pages/LinkPage/LinkPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 import AuthLayout from "./layouts/AuthLayout/AuthLayout";
 import MainLayout from "./layouts/MainLayout/MainLayout";
@@ -19,7 +20,7 @@ const App = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
 
-  const paths = ["/", "profile", "preview"].includes(pathname);
+  const paths = ["/", "/profile", "/preview"].includes(pathname);
 
   useEffect(() => {
     dispatch(currentUser());
@@ -40,6 +41,15 @@ const App = () => {
             element={
               <PrivateRoute>
                 <LinkPage />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="profile"
+            element={
+              <PrivateRoute>
+                <ProfilePage />
               </PrivateRoute>
             }
           />
