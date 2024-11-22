@@ -44,7 +44,13 @@ const LinkItem = ({
   handleInputChange,
 }: LinkItemProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: keyId });
+    useSortable({
+      id: keyId,
+      transition: {
+        duration: 350,
+        easing: "cubic-bezier(0.77, 0, 0.175, 1)",
+      },
+    });
 
   const style = {
     transform: CSS.Transform.toString(transform),
