@@ -1,6 +1,6 @@
-import Icon from "../ui/Icon/Icon";
 import styles from "./Aside.module.scss";
 import PreviewLinkList from "../PreviewLinkList/PreviewLinkList";
+import PhonePreviewIcon from "../ui/PhonePreviewIcon/PhonePreviewIcon";
 
 const Aside = () => {
   return (
@@ -12,7 +12,7 @@ const Aside = () => {
         <div />
       </div>
 
-      <Icon iconName="icon-illustration-phone-mockup" w={307} h={631} />
+      <PhonePreviewIcon />
 
       <PreviewLinkList />
     </aside>
