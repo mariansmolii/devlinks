@@ -24,11 +24,10 @@ const LinkPage = () => {
   const { links, deletedLinkIds } = useLink();
 
   const {
-    control,
-    handleSubmit,
-    register,
     reset,
+    control,
     getValues,
+    handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(linkValidation),
@@ -120,7 +119,6 @@ const LinkPage = () => {
       <LinkForm
         fields={fields}
         remove={remove}
-        register={register}
         onSubmit={onSubmit}
         handleSubmit={handleSubmit}
         control={control}
