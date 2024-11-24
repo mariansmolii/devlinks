@@ -15,7 +15,6 @@ import {
   Controller,
   FieldErrors,
   UseFormGetValues,
-  UseFormRegister,
 } from "react-hook-form";
 
 interface LinkItemProps {
@@ -24,7 +23,6 @@ interface LinkItemProps {
   index: number;
   control: Control<FormValues>;
   errors: FieldErrors<FormValues>;
-  register: UseFormRegister<FormValues>;
   getValues: UseFormGetValues<FormValues>;
   handleRemove: (index: number, id: string) => void;
   handleInputChange: (id: string, value: string) => void;
@@ -37,7 +35,6 @@ const LinkItem = ({
   index,
   errors,
   control,
-  register,
   getValues,
   handleRemove,
   handleSelectChange,
@@ -96,14 +93,23 @@ const LinkItem = ({
           error={errors.links?.[index]?.url?.message}
         />
 
-        <Input
-          id={keyId}
-          type="text"
-          iconName="icon-link"
-          {...register(`links.${index}.url`)}
-          onBlur={(e) => handleInputChange(id, e.target.value.trim())}
-          placeholder={getLinkPlaceholder(getValues().links[index].platform)}
-          error={errors.links?.[index]?.url?.message}
+        <Controller
+          name={`links.${index}.url`}
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input
+              id={keyId}
+              type="text"
+              iconName="icon-link"
+              {...field}
+              onBlur={(e) => handleInputChange(id, e.target.value.trim())}
+              placeholder={getLinkPlaceholder(
+                getValues().links[index].platform
+              )}
+              error={errors.links?.[index]?.url?.message}
+            />
+          )}
         />
 
         {errors.links?.[index]?.url && (

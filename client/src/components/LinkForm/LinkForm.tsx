@@ -19,7 +19,6 @@ import {
   UseFieldArrayRemove,
   UseFormGetValues,
   UseFormHandleSubmit,
-  UseFormRegister,
 } from "react-hook-form";
 import {
   DndContext,
@@ -43,7 +42,6 @@ interface LinkFormProps {
   control: Control<FormValues>;
   errors: FieldErrors<FormValues>;
   onSubmit: SubmitHandler<FormValues>;
-  register: UseFormRegister<FormValues>;
   getValues: UseFormGetValues<FormValues>;
   handleSubmit: UseFormHandleSubmit<FormValues>;
   fields: FieldArrayWithId<FormValues, "links", "keyId">[];
@@ -53,7 +51,6 @@ const LinkForm = ({
   fields,
   onSubmit,
   remove,
-  register,
   handleSubmit,
   control,
   errors,
@@ -116,7 +113,6 @@ const LinkForm = ({
                   id={field._id}
                   keyId={field.keyId}
                   index={index}
-                  register={register}
                   control={control}
                   handleRemove={handleRemove}
                   handleSelectChange={handleSelectChange}
