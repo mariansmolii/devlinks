@@ -1,0 +1,81 @@
+@use "../../scss/utils/mixins" as mx;
+@use "../../scss/utils/functions" as *;
+@use "../../scss/utils/variables" as var;
+
+.uploader {
+  max-width: 193px;
+  height: 193px;
+  position: relative;
+  @include mx.flex-center;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: var.$border-radius-xl;
+  background-color: get-color("purple-light");
+  text-align: center;
+
+  @include mx.breakpoint(tablet) {
+    width: 193px;
+  }
+
+  > img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: var.$border-radius-xl;
+    object-fit: cover;
+  }
+
+  > input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  &:hover .icon.isImage {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+    backdrop-filter: blur(2px);
+  }
+}
+
+.icon {
+  > svg {
+    display: block;
+    margin: 0 auto 8px;
+    fill: get-color("purple");
+  }
+
+  > p {
+    color: get-color("purple");
+    font-weight: 600;
+  }
+
+  &.isImage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    @include mx.flex-center;
+    flex-direction: column;
+
+    transition: opacity 300ms ease-in-out;
+
+    > svg {
+      fill: get-color("white");
+    }
+
+    > p {
+      color: get-color("white");
+      font-weight: 600;
+    }
+  }
+}
