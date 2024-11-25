@@ -1,0 +1,113 @@
+@use "../../scss/utils/mixins" as mx;
+@use "../../scss/utils/functions" as *;
+
+.contentWrapper {
+  padding: 20px;
+  margin-bottom: 24px;
+
+  > label {
+    display: block;
+    @include mx.font-size(16, 24);
+    color: get-color("grey");
+
+    @include mx.breakpoint(mobile) {
+      margin-bottom: 16px;
+    }
+
+    @include mx.breakpoint(tablet) {
+      width: 240px;
+      margin-right: 16px;
+    }
+  }
+
+  > p {
+    @include mx.font-size(12, 18);
+
+    @include mx.breakpoint(mobile) {
+      margin-top: 24px;
+    }
+
+    @include mx.breakpoint(tablet) {
+      width: 127px;
+      margin-left: auto;
+    }
+
+    @include mx.breakpoint(desktop) {
+      width: 215px;
+    }
+  }
+
+  @include mx.breakpoint(tablet) {
+    @include mx.flex-center-vert;
+  }
+}
+
+.inputWrapper {
+  padding: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @include mx.breakpoint(tablet) {
+    margin-bottom: 154px;
+  }
+
+  @include mx.breakpoint(desktop) {
+    margin-bottom: 114px;
+  }
+
+  > div {
+    position: relative;
+
+    @include mx.breakpoint(tablet) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    > label {
+      @include mx.breakpoint(tablet) {
+        @include mx.font-size(16, 24);
+        color: get-color("grey");
+        margin-bottom: 0px;
+      }
+    }
+
+    div {
+      > input {
+        @include mx.breakpoint(tablet) {
+          width: 344px;
+        }
+
+        @include mx.breakpoint(desktop) {
+          width: 432px;
+        }
+
+        padding: 11px 16px;
+      }
+    }
+  }
+}
+
+.line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid get-color("border");
+}
+
+.btnWrapper {
+  padding-top: 16px;
+
+  @include mx.breakpoint(tablet) {
+    padding-top: 24px;
+  }
+
+  > button {
+    @include mx.breakpoint(tablet) {
+      max-width: 96px;
+      margin-left: auto;
+    }
+  }
+}
