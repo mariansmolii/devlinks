@@ -33,14 +33,14 @@ jobs:
           predicate-quantifier: "every"
           filters: |
             client:
-              - "client/"
+              - "client/**"
               - "!client/.gitignore"
               - "!client/*.md"
               - "!client/.env.example"
               - "!client/Dockerfile.dev"
               - "!client/.dockerignore"
             server: 
-              - "server/"
+              - "server/**"
               - "!server/.gitignore"
               - "!server/*.md"
               - "!server/.env.example"
