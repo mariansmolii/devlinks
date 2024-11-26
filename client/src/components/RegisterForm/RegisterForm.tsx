@@ -7,9 +7,9 @@ import ErrorMsg from "../ui/ErrorMsg/ErrorMsg";
 import BtnLoader from "../ui/Loader/BtnLoader";
 import styles from "./RegisterForm.module.scss";
 import CustomToast from "../ui/CustomToast/CustomToast";
+import HandleCatchError from "../ui/HandleCatchError/HandleCatchError";
 
 import { z } from "zod";
-import { Err } from "../../types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { useForm, Controller } from "react-hook-form";
@@ -51,11 +51,7 @@ const RegisterForm = () => {
 
       reset();
     } catch (error) {
-      const err = error as Err;
-
-      toast.custom((t) => (
-        <CustomToast t={t} text={`${err?.message}!`} icon={"warning"} />
-      ));
+      HandleCatchError(error);
     }
   };
 

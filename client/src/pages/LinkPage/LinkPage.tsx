@@ -6,10 +6,10 @@ import Section from "../../components/Section/Section";
 import LinkForm from "../../components/LinkForm/LinkForm";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import CustomToast from "../../components/ui/CustomToast/CustomToast";
+import HandleCatchError from "../../components/ui/HandleCatchError/HandleCatchError";
 import styles from "./LinkPage.module.scss";
 
 import { nanoid } from "nanoid";
-import { Err } from "../../types/auth";
 import { useEffect, useMemo } from "react";
 import { FormValues } from "../../types/link";
 import { useAppDispatch } from "../../hooks/useRedux";
@@ -93,11 +93,7 @@ const LinkPage = () => {
         />
       ));
     } catch (error) {
-      const err = error as Err;
-
-      toast.custom((t) => (
-        <CustomToast t={t} text={`${err?.message}!`} icon={"warning"} />
-      ));
+      HandleCatchError(error);
     }
   };
 
