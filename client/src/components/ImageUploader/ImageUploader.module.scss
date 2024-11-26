@@ -40,8 +40,9 @@
 
   &:hover .icon.isImage {
     opacity: 1;
-    transition: opacity 300ms ease-in-out;
-    backdrop-filter: blur(2px);
+    transition: opacity 350ms ease-in-out, backdrop-filter 350ms ease-in-out;
+    backdrop-filter: blur(3px);
+    border-radius: var.$border-radius-xl;
   }
 }
 
@@ -67,7 +68,8 @@
     @include mx.flex-center;
     flex-direction: column;
 
-    transition: opacity 300ms ease-in-out;
+    transition: opacity 350ms ease-in-out, backdrop-filter 350ms ease-in-out;
+    border-radius: var.$border-radius-xl;
 
     > svg {
       fill: get-color("white");

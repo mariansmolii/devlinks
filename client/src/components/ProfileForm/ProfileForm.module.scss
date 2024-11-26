@@ -76,6 +76,8 @@
 
     div {
       > input {
+        padding: 11px 16px;
+
         @include mx.breakpoint(tablet) {
           width: 344px;
         }
@@ -83,8 +85,6 @@
         @include mx.breakpoint(desktop) {
           width: 432px;
         }
-
-        padding: 11px 16px;
       }
     }
   }
