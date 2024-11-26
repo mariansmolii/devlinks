@@ -8,10 +8,10 @@ import useProfile from "../../hooks/useProfile";
 import CustomToast from "../ui/CustomToast/CustomToast";
 import ImageUploader from "../ImageUploader/ImageUploader";
 import ContentWrapper from "../ContentWrapper/ContentWrapper";
+import HandleCatchError from "../ui/HandleCatchError/HandleCatchError";
 import styles from "./ProfileForm.module.scss";
 
 import { z } from "zod";
-import { Err } from "../../types/auth";
 import { ChangeEvent, useEffect } from "react";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -114,11 +114,7 @@ const ProfileForm = () => {
         />
       ));
     } catch (error) {
-      const err = error as Err;
-
-      toast.custom((t) => (
-        <CustomToast t={t} text={`${err?.message}!`} icon={"warning"} />
-      ));
+      HandleCatchError(error);
     }
   };
 

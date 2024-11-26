@@ -1,15 +1,13 @@
-import toast from "react-hot-toast";
 import Input from "../ui/Input/Input";
 import Label from "../ui/Label/Label";
 import Button from "../ui/Button/Button";
 import useAuth from "../../hooks/useAuth";
 import ErrorMsg from "../ui/ErrorMsg/ErrorMsg";
 import BtnLoader from "../ui/Loader/BtnLoader";
-import CustomToast from "../ui/CustomToast/CustomToast";
+import HandleCatchError from "../ui/HandleCatchError/HandleCatchError";
 import styles from "./LoginForm.module.scss";
 
 import { z } from "zod";
-import { Err } from "../../types/auth";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -42,11 +40,7 @@ const LoginForm = () => {
 
       reset();
     } catch (error) {
-      const err = error as Err;
-
-      toast.custom((t) => (
-        <CustomToast t={t} text={`${err?.message}!`} icon={"warning"} />
-      ));
+      HandleCatchError(error);
     }
   };
 
