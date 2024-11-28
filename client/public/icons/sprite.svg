@@ -143,5 +143,9 @@
       <path fill="#333" style="fill:var(--color2, #333)" opacity=".1"
         d="m28.123 31.901-.057-9.72-2.816-.619-.504 10.339h3.378z" />
     </symbol>
+    <symbol id="icon-log-out" viewBox="0 0 32 32">
+      <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.667" d="M12 28H6.667A2.667 2.667 0 0 1 4 25.333V6.666a2.667 2.667 0 0 1 2.667-2.667H12M21.333 22.667 28 16l-6.667-6.667M28 16H12"/>
+    </symbol>
   </defs>
 </svg>
+
