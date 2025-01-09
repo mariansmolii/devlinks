@@ -103,7 +103,7 @@ jobs:
         with:
           context: ${{ matrix.package }}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devlinks-${{ matrix.package }}:v${{ github.run_number }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devlinks-${{ matrix.package }}:${{ github.sha }}-${{ github.run_number }}
           build-args: |
             VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }}
             VITE_FRONTEND_URL=${{ secrets.VITE_FRONTEND_URL }}
