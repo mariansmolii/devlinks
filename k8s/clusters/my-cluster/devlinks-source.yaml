@@ -8,3 +8,5 @@ spec:
   ref:
     branch: main
   url: https://github.com/mariansmolii/devlinks
+  secretRef:
+    name: git-credentials
