@@ -29,6 +29,13 @@ spec:
           volumeMounts:
             - mountPath: /etc/nginx/conf.d/
               name: devlinks-nginx-config
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
       nodeSelector:
         app: client
 ---
