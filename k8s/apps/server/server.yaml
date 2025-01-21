@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devlinks-server
+  namespace: devlinks
+  labels:
+    app: server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+        - name: server
+          image: mariansmolii/devlinks-server:v64 # {"$imagepolicy": "flux-system:server"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 1111
+          env:
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: server-secrets
+                  key: port
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: server-secrets
+                  key: db_host
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: server-secrets
+                  key: jwt_secret
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+      nodeSelector:
+        app: server
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-svc
+  namespace: devlinks
+spec:
+  selector:
+    app: server
+  type: NodePort
+  ports:
+    - port: 1111
+      protocol: TCP
+      targetPort: 1111
+      nodePort: 30008
