@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongodb-init
+  namespace: devlinks
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: wait-for-db
+          image: mongo
+          command:
+            - /bin/sh
+            - -c
+            - |
+              while ! mongosh --host mongodb-0.mongodb-svc.devlinks.svc.cluster.local --eval 'db.runCommand({ ping: 1 })' >/dev/null 2>&1; do
+                echo "Waiting for MongoDB to be ready..."
+                sleep 3
+              done
+      containers:
+        - name: mongodb-init
+          image: mongo
+          command:
+            - mongosh
+            - --host
+            - mongodb-0.mongodb-svc.devlinks.svc.cluster.local
+            - --eval
+            - |
+              try {
+                 rs.initiate(
+                  {
+                    _id: "rs0",
+                    members: [
+                      { _id: 0, host: "mongodb-0.mongodb-svc.devlinks.svc.cluster.local" },
+                      { _id: 1, host: "mongodb-1.mongodb-svc.devlinks.svc.cluster.local" },
+                      { _id: 2, host: "mongodb-2.mongodb-svc.devlinks.svc.cluster.local" }
+                    ]
+                  }
+                )
+              } catch (e) {
+                print(e)
+              }
+      restartPolicy: Never
+  backoffLimit: 4
