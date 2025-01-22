@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: external-dns
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: cloudflare-api-key
+  namespace: external-dns
+spec:
+  encryptedData:
+    apiKey: AgACTHU2K2+L4wZPJVhv0Qs3J8GkJb/I1dK5tUtucTyvj7jI+yTrcO3c2GFHXxDfcm/oEAJX6P1p/FJX13xF7UBRIQHwOtuI+PKBc5ght/ZzFpVE9PqEhGO/rf4vQAGPoqpu4RUrWJcUR263d8DQ29BBeZIjqXo/zpvzS1xG/Rr/Q50x6UgpDoIxCrtunaYKNt3cwoLBL+y92TqIXNkRbtj69dM+gBQBwT+RM5rL03GOcTt1JEYqUVXsS8UoyWdjVcoF6UgGRd0BYvSE7ITmIymlwvleCXmaAkAoSihlzxUjTYusVFKziX2ih43uNJeL7kVeKjgHE4RiJohnl5FvcD5naNBVsm6H8ZFzofesW0zhQM8Vksfm70Vxa8SmHwczfkudYiQ3R6Nh2fevbn6FezT8A+QPyPn6k5Ei7rLxEjduacBeIoGkrz9Qh9e5jRmdgNeGisxrVX/tJsosbeGkbOW0ABNR9Xlb6lbOyz7WfoVC1nVpDiSXtfLHnKjE424mgaO4pCRAIUJhyKhvPv5hDew5oDTBb+ZddfiEE6N6Oj+ZYv4l1lWuZWrM+gHRX/a1c4cFi6A9fGF7DbiFzP+ALreGgfuXSBga4IBB4cAPRwXLuYZhNFu9uUXEQPL7Ma1jalEYLsqEbeKel2qMHb6aSRCRYXYlSTEtayXD/zM9DgbRcCe+eqZFdBIC2Xm7T/lrAmfmOou2xBCoW5+XcDQfPueofvjaCydP7eca78fue4IlvmD/0D5QiYU/
+  template:
+    metadata:
+      creationTimestamp: null
+      name: cloudflare-api-key
+      namespace: external-dns
+    type: Opaque
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: external-dns
+  namespace: external-dns
+spec:
+  interval: 24h
+  url: https://kubernetes-sigs.github.io/external-dns/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-dns
+  namespace: external-dns
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: external-dns
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns
+        namespace: external-dns
+      version: ">=1.14.5"
+      interval: 12h
+  releaseName: external-dns-controller
+  values:
+    sources:
+      - ingress
+    provider:
+      name: cloudflare
+    domainFilters: ["devlinks.uk"]
+    registry: txt
+    txt-prefix: "devlinks-txt"
+    policy: sync
+    env:
+      - name: CF_API_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: cloudflare-api-key
+            key: apiKey
