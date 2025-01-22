@@ -13,9 +13,15 @@ spec:
             - /bin/sh
             - -c
             - |
-              while ! mongosh --host mongodb-0.mongodb-svc.devlinks.svc.cluster.local --eval 'db.runCommand({ ping: 1 })' >/dev/null 2>&1; do
-                echo "Waiting for MongoDB to be ready..."
-                sleep 3
+              for host in mongodb-0.mongodb-svc.devlinks.svc.cluster.local \
+                          mongodb-1.mongodb-svc.devlinks.svc.cluster.local \
+                          mongodb-2.mongodb-svc.devlinks.svc.cluster.local; do
+                echo "Checking availability of $host..."
+                while ! mongosh --host $host --eval 'db.runCommand({ ping: 1 })' >/dev/null 2>&1; do
+                  echo "$host is not ready yet..."
+                  sleep 3
+                done
+                echo "$host is ready."
               done
       containers:
         - name: mongodb-init
