@@ -6,6 +6,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/issuer: letsencrypt-devlinks
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
   ingressClassName: nginx
   tls:
@@ -16,16 +17,6 @@ spec:
       secretName: devlinks-tls
   rules:
     - host: devlinks.uk
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: client-svc
-                port:
-                  number: 80
-    - host: www.devlinks.uk
       http:
         paths:
           - path: /
