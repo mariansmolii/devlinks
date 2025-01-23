@@ -1,0 +1,35 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: cloudflare-api-token-secret
+  namespace: devlinks
+spec:
+  encryptedData:
+    api-token: AgC0y09sBptMZ1zX0uPSBdwyUg1KzM35NwjHeE7ly1eZQjwLVqjao3mPS+aWusz4FP2FwXsH2L1EYgpiOdWPtOVATcjgO7dzAJN/IfDvZgn400aanMXGf3JTEoyGBlds4Nh+foTvRS9Mx/Te6+GsV7NmzwmJTMvbh0i8LXm1Yt0XJKSL2iL1txCAidW063atHeZI4hGOBDpaJJS6gN/OPmLA13KkfR4JPv7UCuG20RTvHhjW6Iq+10hzRPyxViqSqEUWXf9eiYz6skUzjKLx5fMDTmnONxVkgwesEKPZVrOvBZR/9Jas1d3/GbW4qT0puIMYFJBhpGsHisb7+byj3289yBHI6Zn4qDNQKA6deL05n+1agNIYatJjJMFCiALVFo5m1Jv6yRSX6ZSYQTEmrUSWIuRdGqvMcvlOOrYdtuKPxjFX6YNeDBIfkxuOOPJ0OGiJovdQDzGZZnM8y6967v6wo3+8YjfwtNnAWbB2hX3jYiex+glepkTpxReAcz7nolUS61+KCFjaD9Lx7/mM7ooWogeFmpGbNQfeId4iQCrg9UP+oZBlkFCUjOFaOWiSALTQK5EwBolhGJmCqCqvRQM6lXs8+GRuT81aWU8+P6yeXXNws/3rvHZDswBKYb7pULWkKayrqZiRVT00APGbU1RqTeC0aAKsEpCSu8cF0bebqRCGx7sCIV9DakrNCw2ebVWjiYAemjLpUFI6u6u16Gm6kgsmpB8cki5rcbTBH7ScuGezD2UmoieM
+  template:
+    metadata:
+      creationTimestamp: null
+      name: cloudflare-api-token-secret
+      namespace: devlinks
+    type: Opaque
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-devlinks
+  namespace: devlinks
+spec:
+  acme:
+    email: "maryansmoliy.dev@gmail.com"
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-private-key
+    solvers:
+      - selector: {}
+        dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token-secret
+              key: api-token

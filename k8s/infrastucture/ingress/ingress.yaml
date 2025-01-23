@@ -5,8 +5,15 @@ metadata:
   namespace: devlinks
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/issuer: letsencrypt-devlinks
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - devlinks.uk
+        - www.devlinks.uk
+        - backend.devlinks.uk
+      secretName: devlinks-tls
   rules:
     - host: devlinks.uk
       http:
