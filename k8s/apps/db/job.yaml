@@ -1,0 +1,74 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongodb-init
+  namespace: devlinks
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: wait-for-db
+          image: mongo
+          command:
+            - /bin/sh
+            - -c
+            - |
+              for host in mongodb-0.mongodb-svc.devlinks.svc.cluster.local \
+                          mongodb-1.mongodb-svc.devlinks.svc.cluster.local \
+                          mongodb-2.mongodb-svc.devlinks.svc.cluster.local; do
+                echo "Checking availability of $host..."
+                while ! mongosh --host $host --eval 'db.runCommand({ ping: 1 })' >/dev/null 2>&1; do
+                  echo "$host is not ready yet..."
+                  sleep 3
+                done
+                echo "$host is ready."
+              done
+      containers:
+        - name: mongodb-init
+          image: mongo
+          command:
+            - mongosh
+            - --host
+            - mongodb-0.mongodb-svc.devlinks.svc.cluster.local
+            - --eval
+            - |
+              try {
+                 rs.initiate(
+                  {
+                    _id: "rs0",
+                    members: [
+                      { _id: 0, host: "mongodb-0.mongodb-svc.devlinks.svc.cluster.local" },
+                      { _id: 1, host: "mongodb-1.mongodb-svc.devlinks.svc.cluster.local" },
+                      { _id: 2, host: "mongodb-2.mongodb-svc.devlinks.svc.cluster.local" }
+                    ]
+                  }
+                )
+              } catch (e) {
+                print(e)
+              }
+        - name: mongodb-create-users
+          image: mongo
+          envFrom:
+            - secretRef:
+                name: mongodb-secrets
+          command:
+            - /bin/sh
+            - -c
+            - |
+              mongosh "mongodb://mongodb-0.mongodb-svc.devlinks.svc.cluster.local,mongodb-1.mongodb-svc.devlinks.svc.cluster.local,mongodb-2.mongodb-svc.devlinks.svc.cluster.local/admin?replicaSet=rs0" --eval '
+                db = db.getSiblingDB("admin");
+                db.createUser({
+                  user: process.env.MONGO_INITDB_ROOT_USERNAME,
+                  pwd: process.env.MONGO_INITDB_ROOT_PASSWORD,
+                  roles: [{ role: "root", db: "admin" }]
+                });
+
+                db = db.getSiblingDB(process.env.MONGO_DATABASE);
+                db.createUser({
+                  user: process.env.MONGO_USER,
+                  pwd: process.env.MONGO_USER_PASSWORD,
+                  roles: [{ role: "readWrite", db: process.env.MONGO_DATABASE }]
+                });
+              '
+      restartPolicy: Never
+  backoffLimit: 4
