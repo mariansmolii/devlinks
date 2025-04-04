@@ -8,6 +8,10 @@ resource "google_container_cluster" "primary" {
   networking_mode          = "VPC_NATIVE"
   deletion_protection      = false
 
+  release_channel {
+    channel = "REGULAR"
+  }
+
   ip_allocation_policy {
     cluster_secondary_range_name  = "pods-range"
     services_secondary_range_name = "services-range"
@@ -17,9 +21,9 @@ resource "google_container_cluster" "primary" {
 resource "google_container_node_pool" "primary_nodes" {
   for_each = local.node_pools
 
-  name     = "${each.key}-node-pool"
-  cluster  = google_container_cluster.primary.name
-  location = google_container_cluster.primary.location
+  name       = "${each.key}-node-pool"
+  cluster    = google_container_cluster.primary.name
+  location   = google_container_cluster.primary.location
   node_count = 1
 
   node_config {
@@ -28,5 +32,7 @@ resource "google_container_node_pool" "primary_nodes" {
     labels = {
       "app" = each.value.label
     }
+    tags = ["${var.project_id}-gke-node"] 
   }
 }
+
