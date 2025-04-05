@@ -39,6 +39,7 @@ terraform.rc
 *.pem
 *.key
 *.pub
+*.env
 
 .idea/
 .vscode/
