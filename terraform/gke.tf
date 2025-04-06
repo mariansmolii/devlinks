@@ -1,3 +1,7 @@
+data "google_project" "project" {
+  project_id = var.project_id
+}
+
 resource "google_container_cluster" "primary" {
   name                     = "${var.project_id}-gke"
   location                 = var.zone
@@ -63,6 +67,5 @@ resource "google_container_node_pool" "primary_nodes" {
       "https://www.googleapis.com/auth/cloud-platform",
     ]
   }
-
 }
 
