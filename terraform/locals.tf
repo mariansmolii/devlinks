@@ -14,6 +14,6 @@ locals {
   apis = [
     "compute.googleapis.com",
     "container.googleapis.com",
+    "secretmanager.googleapis.com",
   ]
-
 }
