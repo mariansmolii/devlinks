@@ -1,0 +1,40 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mongodb
+  namespace: devlinks
+spec:
+  interval: 30m
+  releaseName: mongodb
+  chart:
+    spec:
+      chart: mongodb
+      version: ">=16.4.12"
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 12h
+  values:
+    fullnameOverride: "mongodb"
+    architecture: replicaset
+    auth:
+      enabled: true
+      rootUser: root
+      usernames: [myuser]
+      databases: [devlinks]
+      existingSecret: "mongodb-secrets"
+    replicaCount: 3
+    persistence:
+      enabled: true
+      storageClass: "standard"
+      size: 10Gi
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "512Mi"
+      limits:
+        cpu: "500m"
+        memory: "1Gi"
+    nodeSelector:
+      app: db
