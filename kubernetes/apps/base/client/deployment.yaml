@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devlinks-client
+  namespace: devlinks
+  labels:
+    app: client
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      volumes:
+        - name: devlinks-nginx-config
+          configMap:
+            name: devlinks-cm
+      containers:
+        - name: client
+          image: mariansmolii/devlinks-client:v71
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d/
+              name: devlinks-nginx-config
+      nodeSelector:
+        app: client
