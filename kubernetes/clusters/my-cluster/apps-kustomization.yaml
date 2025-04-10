@@ -16,3 +16,22 @@ spec:
     kind: GitRepository
     name: devlinks
   wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: server
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/base/server
+  dependsOn:
+    - name: infra-controllers
+    - name: database
+  prune: true
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: devlinks
+  wait: true
