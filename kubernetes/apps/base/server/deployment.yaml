@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: mariansmolii/devlinks-server:v64
+          image: mariansmolii/devlinks-server:v64 # {"$imagepolicy": "flux-system:server"}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 1111
