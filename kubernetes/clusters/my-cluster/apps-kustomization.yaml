@@ -8,6 +8,7 @@ spec:
   path: ./kubernetes/apps/base/database
   dependsOn:
     - name: infra-controllers
+    - name: monitoring-controllers
   prune: true
   interval: 1h
   retryInterval: 1m
