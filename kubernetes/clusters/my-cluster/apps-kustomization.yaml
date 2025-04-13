@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: database
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/base/database
+  dependsOn:
+    - name: infra-controllers
+  prune: true
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: devlinks
+  wait: true
