@@ -9,4 +9,6 @@ profileRouter.use(authenticate);
 
 profileRouter.get("/", profileController.getProfile);
 
+profileRouter.patch("/update", profileController.updateProfileInfo);
+
 export default profileRouter;
