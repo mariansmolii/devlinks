@@ -15,6 +15,7 @@ import { useAppDispatch } from "./hooks/useRedux";
 import { getLinks } from "./store/link/linkOperations";
 import { currentUser } from "./store/auth/authOperations";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { getProfileInfo } from "./store/profile/profileOperations";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +30,7 @@ const App = () => {
   useEffect(() => {
     if (paths) {
       dispatch(getLinks());
+      dispatch(getProfileInfo());
     }
   }, [dispatch, paths]);
 

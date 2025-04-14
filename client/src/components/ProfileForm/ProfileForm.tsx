@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import Label from "../ui/Label/Label";
 import Input from "../ui/Input/Input";
 import Button from "../ui/Button/Button";
+import BtnLoader from "../ui/Loader/BtnLoader";
 import ErrorMsg from "../ui/ErrorMsg/ErrorMsg";
 import useProfile from "../../hooks/useProfile";
 import CustomToast from "../ui/CustomToast/CustomToast";
@@ -21,12 +22,14 @@ import {
   setFormData,
   setProfileImagePreview,
 } from "../../store/profile/profileSlice";
+import { updateProfileInfo } from "../../store/profile/profileOperations";
 
 const ProfileForm = () => {
   const dispatch = useAppDispatch();
   const {
     personalDetails: { firstName, lastName, profileEmail },
     profileImage: { previewImage },
+    isLoading,
   } = useProfile();
 
   const {
@@ -41,11 +44,24 @@ const ProfileForm = () => {
       profileEmail,
     },
     mode: "onChange",
+    values: {
+      firstName,
+      lastName,
+      profileEmail,
+    },
   });
 
   const watchedFields = useWatch({ control });
 
   useEffect(() => {
+    if (
+      !watchedFields.firstName?.trim() ||
+      !watchedFields.lastName?.trim() ||
+      !watchedFields.profileEmail?.trim()
+    ) {
+      return;
+    }
+
     const updateFormData = debounce((fields) => {
       dispatch(setFormData(fields));
     }, 350);
@@ -97,14 +113,14 @@ const ProfileForm = () => {
   const onSubmit = (data: z.infer<typeof profileSchema>) => {
     const formData = new FormData();
 
-    // TODO: add posibility to upload data to the server
+    // TODO: add posibility to upload image to server
 
     try {
       if (previewImage) {
         formData.append("profileImage", previewImage);
       }
 
-      console.log(data);
+      dispatch(updateProfileInfo(data));
 
       toast.custom((t) => (
         <CustomToast
@@ -214,10 +230,9 @@ const ProfileForm = () => {
           type="submit"
           variant={"primary"}
           className={styles.btn}
-          // title={isLoading ? <BtnLoader /> : "Save"}
-          title="Save"
-          // TODO: add disabled on isLoading
+          title={isLoading ? <BtnLoader /> : "Save"}
           disabled={
+            isLoading ||
             !firstName.trim() ||
             !lastName.trim() ||
             !!errors.firstName ||
