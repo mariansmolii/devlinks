@@ -1,5 +1,9 @@
 import { Err } from "./auth";
 
+export interface ProfileResponse extends PersonalDetails {
+  profileImage?: string;
+}
+
 export interface PersonalDetails {
   firstName: string;
   lastName: string;
@@ -8,7 +12,7 @@ export interface PersonalDetails {
 
 export interface ProfileImage {
   previewImage: string | null;
-  savedImage: File | null;
+  savedImage: File | null | string;
 }
 
 export interface ProfileState {
