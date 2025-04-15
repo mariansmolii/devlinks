@@ -2,17 +2,19 @@ import { useLocation } from "react-router-dom";
 import useProfile from "../../../hooks/useProfile";
 
 interface PhonePreviewIconProps {
-  classNeame?: string;
+  className?: string;
 }
 
 const PhonePreviewIcon = (props: PhonePreviewIconProps) => {
   const { pathname } = useLocation();
   const {
     profileImage: { previewImage, savedImage },
+    personalDetails: { firstName, lastName, profileEmail },
   } = useProfile();
 
   const isProfilePage = pathname === "/profile";
   const isPreviewImage = previewImage || savedImage;
+  const isFullName = firstName && lastName;
 
   return (
     <svg
@@ -34,8 +36,13 @@ const PhonePreviewIcon = (props: PhonePreviewIconProps) => {
 
       {!isPreviewImage && <circle cx={153.5} cy={112} r={48} fill="#EEE" />}
 
-      <rect width={160} height={16} x={73.5} y={185} fill="#EEE" rx={8} />
-      <rect width={72} height={8} x={117.5} y={214} fill="#EEE" rx={4} />
+      {!isFullName && (
+        <rect width={160} height={16} x={73.5} y={185} fill="#EEE" rx={8} />
+      )}
+
+      {!profileEmail && (
+        <rect width={72} height={8} x={117.5} y={214} fill="#EEE" rx={4} />
+      )}
 
       {!isProfilePage && (
         <>
