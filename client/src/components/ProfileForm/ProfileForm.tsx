@@ -1,4 +1,3 @@
-import debounce from "debounce";
 import toast from "react-hot-toast";
 import Label from "../ui/Label/Label";
 import Input from "../ui/Input/Input";
@@ -13,11 +12,11 @@ import HandleCatchError from "../ui/HandleCatchError/HandleCatchError";
 import styles from "./ProfileForm.module.scss";
 
 import { z } from "zod";
-import { ChangeEvent, useEffect } from "react";
+import { ChangeEvent } from "react";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { profileSchema } from "../../utils/validations/profile";
-import { Controller, useForm, useWatch } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   setFormData,
   setProfileImagePreview,
@@ -35,6 +34,7 @@ const ProfileForm = () => {
   const {
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
@@ -50,26 +50,6 @@ const ProfileForm = () => {
       profileEmail,
     },
   });
-
-  const watchedFields = useWatch({ control });
-
-  useEffect(() => {
-    if (
-      !watchedFields.firstName?.trim() ||
-      !watchedFields.lastName?.trim() ||
-      !watchedFields.profileEmail?.trim()
-    ) {
-      return;
-    }
-
-    const updateFormData = debounce((fields) => {
-      dispatch(setFormData(fields));
-    }, 350);
-
-    updateFormData(watchedFields);
-
-    return () => updateFormData.clear();
-  }, [dispatch, watchedFields]);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -163,6 +143,12 @@ const ProfileForm = () => {
                 id="firstName"
                 type="text"
                 {...field}
+                onChange={(e) => {
+                  field.onChange(e);
+                  dispatch(
+                    setFormData({ ...watch(), firstName: e.target.value })
+                  );
+                }}
                 placeholder="e.g. John"
                 error={errors.firstName?.message}
               />
@@ -187,6 +173,12 @@ const ProfileForm = () => {
                 id="lastName"
                 type="text"
                 {...field}
+                onChange={(e) => {
+                  field.onChange(e);
+                  dispatch(
+                    setFormData({ ...watch(), lastName: e.target.value })
+                  );
+                }}
                 placeholder="e.g. Appleseed"
                 error={errors.lastName?.message}
               />
@@ -211,6 +203,12 @@ const ProfileForm = () => {
                 id="profileEmail"
                 type="text"
                 {...field}
+                onChange={(e) => {
+                  field.onChange(e);
+                  dispatch(
+                    setFormData({ ...watch(), profileEmail: e.target.value })
+                  );
+                }}
                 placeholder="e.g. email@example.com"
                 error={errors.profileEmail?.message}
               />
