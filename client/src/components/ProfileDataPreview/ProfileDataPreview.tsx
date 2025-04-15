@@ -4,6 +4,7 @@ import styles from "./ProfileDataPreview.module.scss";
 const ProfileDataPreview = () => {
   const {
     profileImage: { previewImage, savedImage },
+    personalDetails: { firstName, lastName, profileEmail },
   } = useProfile();
 
   return (
@@ -15,6 +16,11 @@ const ProfileDataPreview = () => {
           className={styles.profileImage}
         />
       )}
+
+      <ul className={styles.profileData}>
+        <li className={styles.name}>{firstName + " " + lastName}</li>
+        <li className={styles.email}>{profileEmail}</li>
+      </ul>
     </>
   );
 };
