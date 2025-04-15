@@ -21,18 +21,8 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 1111
-          env:
-            - name: PORT
-              value: "1111"
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: server-secrets
-                  key: db_host
-            - name: JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: server-secrets
-                  key: jwt_secret
+          envFrom:
+            - secretRef:
+                name: server-secrets
       nodeSelector:
         app: server
