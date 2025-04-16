@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PersonalDetails, ProfileState } from "../../types/profile";
 import { handleFulfilled, handlePending, handleRejected } from "../handlers";
-import { getProfileInfo, updateProfileInfo } from "./profileOperations";
+import {
+  getProfileInfo,
+  updateProfileImage,
+  updateProfileInfo,
+} from "./profileOperations";
 
 const initialState: ProfileState = {
   formData: {
@@ -47,6 +51,9 @@ const profileSlice = createSlice({
           ...payload,
         };
         state.formData.profileImage.savedImage = payload.profileImage ?? null;
+      })
+      .addCase(updateProfileImage.fulfilled, (state, { payload }) => {
+        state.formData.profileImage.savedImage = payload.image;
       })
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),

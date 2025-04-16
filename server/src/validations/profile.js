@@ -6,5 +6,5 @@ export const updateProfileSchema = Joi.object({
   profileImage: Joi.string(),
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  profileEmail: Joi.string().pattern(emailRegexp),
+  profileEmail: Joi.string().pattern(emailRegexp).allow(null, ""),
 });

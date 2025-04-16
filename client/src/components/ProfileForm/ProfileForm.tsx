@@ -12,7 +12,7 @@ import HandleCatchError from "../ui/HandleCatchError/HandleCatchError";
 import styles from "./ProfileForm.module.scss";
 
 import { z } from "zod";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { profileSchema } from "../../utils/validations/profile";
@@ -21,15 +21,19 @@ import {
   setFormData,
   setProfileImagePreview,
 } from "../../store/profile/profileSlice";
-import { updateProfileInfo } from "../../store/profile/profileOperations";
+import {
+  updateProfileImage,
+  updateProfileInfo,
+} from "../../store/profile/profileOperations";
 
 const ProfileForm = () => {
   const dispatch = useAppDispatch();
   const {
     personalDetails: { firstName, lastName, profileEmail },
-    profileImage: { previewImage },
     isLoading,
   } = useProfile();
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const {
     handleSubmit,
@@ -79,6 +83,8 @@ const ProfileForm = () => {
       ));
     }
 
+    setSelectedFile(file);
+
     const reader = new FileReader();
 
     reader.onloadend = () => {
@@ -90,14 +96,14 @@ const ProfileForm = () => {
     reader.readAsDataURL(file);
   };
 
-  const onSubmit = (data: z.infer<typeof profileSchema>) => {
+  const onSubmit = async (data: z.infer<typeof profileSchema>) => {
     const formData = new FormData();
 
-    // TODO: add posibility to upload image to server
-
     try {
-      if (previewImage) {
-        formData.append("profileImage", previewImage);
+      if (selectedFile) {
+        formData.append("profileImage", selectedFile);
+
+        await dispatch(updateProfileImage(formData)).unwrap();
       }
 
       dispatch(updateProfileInfo(data));
