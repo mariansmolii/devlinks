@@ -1,7 +1,16 @@
+import clsx from "clsx";
 import useProfile from "../../hooks/useProfile";
 import styles from "./ProfileDataPreview.module.scss";
 
-const ProfileDataPreview = () => {
+interface ProfileDataPreviewProps {
+  className?: string;
+  showImage?: boolean;
+}
+
+const ProfileDataPreview = ({
+  className,
+  showImage = true,
+}: ProfileDataPreviewProps) => {
   const {
     profileImage: { previewImage, savedImage },
     personalDetails: { firstName, lastName, profileEmail },
@@ -9,7 +18,7 @@ const ProfileDataPreview = () => {
 
   return (
     <>
-      {(previewImage || savedImage) && (
+      {showImage && (previewImage || savedImage) && (
         <img
           src={(previewImage || savedImage) as string}
           alt="user profile image"
@@ -17,7 +26,7 @@ const ProfileDataPreview = () => {
         />
       )}
 
-      <ul className={styles.profileData}>
+      <ul className={clsx(styles.profileData, className)}>
         <li className={styles.name}>{firstName + " " + lastName}</li>
         <li className={styles.email}>{profileEmail}</li>
       </ul>
