@@ -1,7 +1,8 @@
 import LinkPage from "./pages/LinkPage/LinkPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import PreviewPage from "./pages/PreviewPage/PreviewPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
 import AuthLayout from "./layouts/AuthLayout/AuthLayout";
 import MainLayout from "./layouts/MainLayout/MainLayout";
@@ -52,6 +53,15 @@ const App = () => {
             element={
               <PrivateRoute>
                 <ProfilePage />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="preview"
+            element={
+              <PrivateRoute>
+                <PreviewPage />
               </PrivateRoute>
             }
           />
