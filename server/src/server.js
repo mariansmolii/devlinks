@@ -4,6 +4,7 @@ import express from "express";
 
 import authRouter from "./routers/api/auth-router.js";
 import linkRouter from "./routers/api/link-router.js";
+import shareRouter from "./routers/api/share-router.js";
 import profileRouter from "./routers/api/profile-router.js";
 
 import { env } from "./utils/index.js";
@@ -30,6 +31,7 @@ const startServer = () => {
 
   app.use("/api/auth", authRouter);
   app.use("/api/link", linkRouter);
+  app.use("/api/share", shareRouter);
   app.use("/api/profile", profileRouter);
 
   app.use((req, res) => {
