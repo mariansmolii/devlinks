@@ -4,6 +4,10 @@ export interface ProfileResponse extends PersonalDetails {
   profileImage?: string;
 }
 
+export interface ProfileImageResponse {
+  image: string;
+}
+
 export interface PersonalDetails {
   firstName: string;
   lastName: string;
