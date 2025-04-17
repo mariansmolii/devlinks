@@ -1,6 +1,7 @@
 import { AuthState } from "../types/auth";
 import { authReducer } from "./auth/authSlice";
 import { linkReducer } from "./link/linkSlice";
+import { shareReducer } from "./share/shareSlice";
 import { combineReducers } from "@reduxjs/toolkit";
 import { profileReducer } from "./profile/profileSlice";
 
@@ -19,6 +20,7 @@ export const reducer = combineReducers({
   auth: persistedReducer,
   link: linkReducer,
   profile: profileReducer,
+  share: shareReducer,
 });
 
 export type RootState = ReturnType<typeof reducer>;
