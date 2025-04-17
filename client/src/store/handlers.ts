@@ -1,21 +1,24 @@
 import { LinkState } from "../types/link";
 import { AuthState, Err, LoginResponse } from "../types/auth";
 import { ProfileState } from "../types/profile";
+import { ShareState } from "../types/share";
 
 export const handleFulfilled = (
-  state: AuthState | LinkState | ProfileState
+  state: AuthState | LinkState | ProfileState | ShareState
 ) => {
   state.isLoading = false;
   state.error = null;
 };
 
-export const handlePending = (state: AuthState | LinkState | ProfileState) => {
+export const handlePending = (
+  state: AuthState | LinkState | ProfileState | ShareState
+) => {
   state.isLoading = true;
   state.error = null;
 };
 
 export const handleRejected = (
-  state: AuthState | LinkState | ProfileState,
+  state: AuthState | LinkState | ProfileState | ShareState,
   { payload }: { payload: Err }
 ) => {
   state.isLoading = false;

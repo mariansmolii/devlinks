@@ -1,5 +1,6 @@
 import LinkPage from "./pages/LinkPage/LinkPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import SharePage from "./pages/SharePage/SharePage";
 import PreviewPage from "./pages/PreviewPage/PreviewPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
@@ -7,8 +8,8 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import AuthLayout from "./layouts/AuthLayout/AuthLayout";
 import MainLayout from "./layouts/MainLayout/MainLayout";
 
-import PrivateRoute from "./guards/PrivateRoute";
 import PublicRoute from "./guards/PublicRoute";
+import PrivateRoute from "./guards/PrivateRoute";
 
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
@@ -65,6 +66,8 @@ const App = () => {
               </PrivateRoute>
             }
           />
+
+          <Route path="share/:id" element={<SharePage />} />
         </Route>
 
         <Route element={<AuthLayout />}>

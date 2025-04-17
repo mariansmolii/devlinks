@@ -1,24 +1,32 @@
-import useLink from "../../hooks/useLink";
-import styles from "./PreviewPage.module.scss";
-import useProfile from "../../hooks/useProfile";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/useRedux";
+import { getSharedData } from "../../store/share/shareOperations";
+
+import useShare from "../../hooks/useShare";
+import styles from "./SharePage.module.scss";
 import PreviewLinkList from "../../components/PreviewLinkList/PreviewLinkList";
 import ProfileDataPreview from "../../components/ProfileDataPreview/ProfileDataPreview";
 
-const PreviewPage = () => {
-  const { links } = useLink();
-  const {
-    profileImage: { previewImage, savedImage },
-    personalDetails: { firstName, lastName, profileEmail },
-  } = useProfile();
+const SharePage = () => {
+  const { id: owner } = useParams();
+  const { profileImage, links, firstName, lastName, profileEmail } = useShare();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (owner) {
+      dispatch(getSharedData(owner));
+    }
+  }, [dispatch, owner]);
 
   return (
     <>
       <div className={styles.background} />
 
       <div className={styles.wrapper}>
-        {savedImage || previewImage ? (
+        {profileImage ? (
           <img
-            src={(previewImage || savedImage) as string}
+            src={profileImage as string}
             alt="user profile image"
             className={styles.img}
           />
@@ -43,4 +51,4 @@ const PreviewPage = () => {
   );
 };
 
-export default PreviewPage;
+export default SharePage;
