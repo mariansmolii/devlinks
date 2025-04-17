@@ -5,15 +5,20 @@ import styles from "./ProfileDataPreview.module.scss";
 interface ProfileDataPreviewProps {
   className?: string;
   showImage?: boolean;
+  firstName: string;
+  lastName: string;
+  profileEmail: string;
 }
 
 const ProfileDataPreview = ({
   className,
   showImage = true,
+  firstName,
+  lastName,
+  profileEmail,
 }: ProfileDataPreviewProps) => {
   const {
     profileImage: { previewImage, savedImage },
-    personalDetails: { firstName, lastName, profileEmail },
   } = useProfile();
 
   return (
