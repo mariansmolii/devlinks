@@ -7,7 +7,6 @@ import ProfileDataPreview from "../../components/ProfileDataPreview/ProfileDataP
 const PreviewPage = () => {
   const { links } = useLink();
   const {
-    profileImage: { previewImage, savedImage },
     personalDetails: { firstName, lastName, profileEmail },
   } = useProfile();
 
@@ -16,18 +15,7 @@ const PreviewPage = () => {
       <div className={styles.background} />
 
       <div className={styles.wrapper}>
-        {savedImage || previewImage ? (
-          <img
-            src={(previewImage || savedImage) as string}
-            alt="user profile image"
-            className={styles.img}
-          />
-        ) : (
-          <div />
-        )}
-
         <ProfileDataPreview
-          showImage={false}
           firstName={firstName}
           lastName={lastName}
           profileEmail={profileEmail ?? ""}

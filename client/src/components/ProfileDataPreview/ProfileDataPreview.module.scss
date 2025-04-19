@@ -11,6 +11,15 @@
   border-radius: 100%;
   border: 4px solid get-color("purple");
   object-fit: cover;
+
+  &.isPages {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 104px;
+    height: 104px;
+    margin-bottom: 25px;
+  }
 }
 
 .profileData {
@@ -40,5 +49,38 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  &.isPages {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-bottom: 56px;
+
+    > .name {
+      width: 237px;
+      @include mx.font-size(32, 48);
+      font-weight: 700;
+      color: get-color("dark-grey");
+    }
+
+    > .email {
+      width: 237px;
+      @include mx.font-size(16, 24);
+      width: 237px;
+    }
+  }
+}
+
+.imagePlaceholder {
+  display: none;
+
+  &.isPages {
+    display: block;
+    width: 104px;
+    height: 104px;
+    border-radius: 100%;
+    background-color: get-color("very-light-grey");
+    margin-bottom: 25px;
   }
 }
