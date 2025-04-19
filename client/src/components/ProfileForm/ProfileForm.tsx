@@ -1,11 +1,10 @@
-import toast from "react-hot-toast";
 import Label from "../ui/Label/Label";
 import Input from "../ui/Input/Input";
 import Button from "../ui/Button/Button";
 import BtnLoader from "../ui/Loader/BtnLoader";
 import ErrorMsg from "../ui/ErrorMsg/ErrorMsg";
 import useProfile from "../../hooks/useProfile";
-import CustomToast from "../ui/CustomToast/CustomToast";
+import showToast from "../ui/CustomToast/showToast";
 import ImageUploader from "../ImageUploader/ImageUploader";
 import ContentWrapper from "../ContentWrapper/ContentWrapper";
 import HandleCatchError from "../ui/HandleCatchError/HandleCatchError";
@@ -15,9 +14,13 @@ import { z } from "zod";
 import { ChangeEvent, useState } from "react";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { profileSchema } from "../../utils/validations/profile";
+import {
+  profileSchema,
+  validateImageFile,
+} from "../../utils/validations/profile";
 import { Controller, useForm } from "react-hook-form";
 import {
+  clearProfileImagePreview,
   setFormData,
   setProfileImagePreview,
 } from "../../store/profile/profileSlice";
@@ -30,6 +33,7 @@ const ProfileForm = () => {
   const dispatch = useAppDispatch();
   const {
     personalDetails: { firstName, lastName, profileEmail },
+    profileImage: { savedImage, previewImage },
     isLoading,
   } = useProfile();
 
@@ -60,28 +64,9 @@ const ProfileForm = () => {
 
     if (!file) return;
 
-    const fileSize = Number((file.size / 1024 / 1024).toFixed(4));
-    const fileFormat = ["image/jpeg", "image/png"].includes(file.type);
+    const errorMsg = validateImageFile(file);
 
-    if (fileSize >= 5) {
-      return toast.custom((t) => (
-        <CustomToast
-          t={t}
-          text={"Image size must be less than 5 MB"}
-          icon={"warning"}
-        />
-      ));
-    }
-
-    if (!fileFormat) {
-      return toast.custom((t) => (
-        <CustomToast
-          t={t}
-          text={"Image must be in PNG or JPG format"}
-          icon={"warning"}
-        />
-      ));
-    }
+    if (errorMsg) return showToast(errorMsg, "warning");
 
     setSelectedFile(file);
 
@@ -100,21 +85,22 @@ const ProfileForm = () => {
     const formData = new FormData();
 
     try {
-      if (selectedFile) {
+      if (
+        selectedFile &&
+        previewImage?.startsWith("data:image/") &&
+        previewImage !== savedImage
+      ) {
         formData.append("profileImage", selectedFile);
-
         await dispatch(updateProfileImage(formData)).unwrap();
+        dispatch(clearProfileImagePreview());
       }
 
       dispatch(updateProfileInfo(data));
 
-      toast.custom((t) => (
-        <CustomToast
-          t={t}
-          text="Your changes have been successfully saved!"
-          icon="icon-changes-saved"
-        />
-      ));
+      showToast(
+        "Your changes have been successfully saved!",
+        "icon-changes-saved"
+      );
     } catch (error) {
       HandleCatchError(error);
     }
