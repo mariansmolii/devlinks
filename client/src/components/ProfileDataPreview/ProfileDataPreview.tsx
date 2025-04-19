@@ -1,10 +1,11 @@
 import clsx from "clsx";
+import useShare from "../../hooks/useShare";
 import useProfile from "../../hooks/useProfile";
 import styles from "./ProfileDataPreview.module.scss";
+import { useLocation, useParams } from "react-router-dom";
 
 interface ProfileDataPreviewProps {
   className?: string;
-  showImage?: boolean;
   firstName: string;
   lastName: string;
   profileEmail: string;
@@ -12,27 +13,42 @@ interface ProfileDataPreviewProps {
 
 const ProfileDataPreview = ({
   className,
-  showImage = true,
   firstName,
   lastName,
   profileEmail,
 }: ProfileDataPreviewProps) => {
+  const { id } = useParams();
+  const { pathname } = useLocation();
+  const { profileImage } = useShare();
+
   const {
     profileImage: { previewImage, savedImage },
   } = useProfile();
 
+  const isPages = ["/preview", `/share/${id}`].includes(pathname);
+  const imageToShow =
+    pathname === `/share/${id}` ? profileImage : previewImage || savedImage;
+
   return (
     <>
-      {showImage && (previewImage || savedImage) && (
+      {imageToShow ? (
         <img
-          src={(previewImage || savedImage) as string}
+          src={imageToShow as string}
           alt="user profile image"
-          className={styles.profileImage}
+          className={clsx(
+            styles.profileImage,
+            isPages && styles.isPages,
+            className
+          )}
+        />
+      ) : (
+        <div
+          className={clsx(styles.imagePlaceholder, isPages && styles.isPages)}
         />
       )}
 
-      <ul className={clsx(styles.profileData, className)}>
-        <li className={styles.name}>{firstName + " " + lastName}</li>
+      <ul className={clsx(styles.profileData, isPages && styles.isPages)}>
+        <li className={clsx(styles.name)}>{firstName + " " + lastName}</li>
         <li className={styles.email}>{profileEmail}</li>
       </ul>
     </>

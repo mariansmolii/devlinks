@@ -10,7 +10,7 @@ import ProfileDataPreview from "../../components/ProfileDataPreview/ProfileDataP
 
 const SharePage = () => {
   const { id: owner } = useParams();
-  const { profileImage, links, firstName, lastName, profileEmail } = useShare();
+  const { links, firstName, lastName, profileEmail } = useShare();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -24,20 +24,9 @@ const SharePage = () => {
       <div className={styles.background} />
 
       <div className={styles.wrapper}>
-        {profileImage ? (
-          <img
-            src={profileImage as string}
-            alt="user profile image"
-            className={styles.img}
-          />
-        ) : (
-          <div />
-        )}
-
         <ProfileDataPreview
-          showImage={false}
-          firstName={firstName}
-          lastName={lastName}
+          firstName={firstName ?? ""}
+          lastName={lastName ?? ""}
           profileEmail={profileEmail ?? ""}
         />
 
