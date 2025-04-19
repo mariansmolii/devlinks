@@ -1,11 +1,10 @@
-import toast from "react-hot-toast";
 import useLink from "../../hooks/useLink";
 import options from "../../utils/data/selectData";
 import Button from "../../components/ui/Button/Button";
 import Section from "../../components/Section/Section";
 import LinkForm from "../../components/LinkForm/LinkForm";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import CustomToast from "../../components/ui/CustomToast/CustomToast";
+import showToast from "../../components/ui/CustomToast/showToast";
 import HandleCatchError from "../../components/ui/HandleCatchError/HandleCatchError";
 import styles from "./LinkPage.module.scss";
 
@@ -85,13 +84,10 @@ const LinkPage = () => {
 
       dispatch(clearDeletedLinkIds());
 
-      toast.custom((t) => (
-        <CustomToast
-          t={t}
-          text="Your changes have been successfully saved!"
-          icon={"icon-changes-saved"}
-        />
-      ));
+      showToast(
+        "Your changes have been successfully saved!",
+        "icon-changes-saved"
+      );
     } catch (error) {
       HandleCatchError(error);
     }

@@ -1,8 +1,7 @@
-import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import Button from "../ui/Button/Button";
+import showToast from "../ui/CustomToast/showToast";
 import styles from "./PreviewNavigation.module.scss";
-import CustomToast from "../ui/CustomToast/CustomToast";
 
 import { useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -16,13 +15,7 @@ const PreviewNavigation = () => {
 
   const handleShareLink = () => {
     navigator.clipboard.writeText(`${VITE_FRONTEND_URL}/share/${userId}`);
-    toast.custom((t) => (
-      <CustomToast
-        t={t}
-        text={"Link copied to clipboard!"}
-        icon={"icon-link"}
-      />
-    ));
+    showToast("Link copied to clipboard!", "icon-link");
   };
 
   return (

@@ -1,12 +1,11 @@
 import Input from "../ui/Input/Input";
 import Label from "../ui/Label/Label";
-import toast from "react-hot-toast";
 import Button from "../ui/Button/Button";
 import useAuth from "../../hooks/useAuth";
 import ErrorMsg from "../ui/ErrorMsg/ErrorMsg";
 import BtnLoader from "../ui/Loader/BtnLoader";
 import styles from "./RegisterForm.module.scss";
-import CustomToast from "../ui/CustomToast/CustomToast";
+import showToast from "../ui/CustomToast/showToast";
 import HandleCatchError from "../ui/HandleCatchError/HandleCatchError";
 
 import { z } from "zod";
@@ -45,9 +44,7 @@ const RegisterForm = () => {
     try {
       await dispatch(register({ email, password })).unwrap();
 
-      toast.custom((t) => (
-        <CustomToast t={t} text="Registration is successful!" icon={"check"} />
-      ));
+      showToast("Registration successful!", "check");
 
       reset();
     } catch (error) {
