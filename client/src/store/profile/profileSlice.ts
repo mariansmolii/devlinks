@@ -36,6 +36,9 @@ const profileSlice = createSlice({
     setProfileImagePreview: (state, { payload }: { payload: string }) => {
       state.formData.profileImage.previewImage = payload;
     },
+    clearProfileImagePreview: (state) => {
+      state.formData.profileImage.previewImage = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -68,4 +71,5 @@ const profileSlice = createSlice({
 });
 
 export const profileReducer = profileSlice.reducer;
-export const { setFormData, setProfileImagePreview } = profileSlice.actions;
+export const { setFormData, setProfileImagePreview, clearProfileImagePreview } =
+  profileSlice.actions;
