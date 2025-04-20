@@ -132,3 +132,7 @@ dist
 # editor
 .idea
 .vscode
+
+
+# temp folder
+temp
