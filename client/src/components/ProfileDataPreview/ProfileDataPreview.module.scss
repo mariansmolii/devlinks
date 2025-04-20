@@ -28,7 +28,7 @@
   left: 201px;
 
   > .name {
-    width: 170px;
+    width: 160px;
     @include mx.font-size(18, 27);
     font-weight: 600;
     color: get-color("dark-grey");
