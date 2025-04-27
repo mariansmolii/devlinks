@@ -30,3 +30,15 @@ variable "disk_size_gb" {
   description = "node disk size in GB"
   default     = 30
 }
+
+variable "external_secrets_ns" {
+  type        = string
+  description = "The namespace in which External Secrets will be installed."
+  default     = "external-secrets"
+}
+
+variable "external_secrets_sa_name" {
+  type        = string
+  description = "The name of the External Secrets service account."
+  default     = "external-secrets-sa"
+}
