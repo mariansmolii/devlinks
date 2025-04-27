@@ -21,6 +21,7 @@ data "google_container_cluster" "gke" {
   location = var.zone
 
   depends_on = [
+    google_container_node_pool.primary_nodes,
     google_container_cluster.primary
   ]
 }
