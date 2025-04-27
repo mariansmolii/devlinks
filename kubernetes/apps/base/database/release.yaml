@@ -31,5 +31,14 @@ spec:
       limits:
         cpu: "300m"
         memory: "512Mi"
+    metrics:
+      enabled: true
+      collector:
+        dbstats: true
+        indexstats: true
+      serviceMonitor:
+        enabled: true
+        labels:
+          release: kube-prometheus-stack
     nodeSelector:
       app: db
