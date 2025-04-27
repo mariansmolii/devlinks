@@ -19,26 +19,17 @@ spec:
       usernames: [myuser]
       databases: [devlinks]
       existingSecret: "mongodb-secrets"
-    replicaCount: 3
+    replicaCount: 2
     persistence:
       enabled: true
       storageClass: "standard"
       size: 10Gi
     resources:
       requests:
-        cpu: "250m"
-        memory: "512Mi"
+        cpu: "150m"
+        memory: "256Mi"
       limits:
-        cpu: "500m"
-        memory: "1Gi"
-    metrics:
-      enabled: true
-      collector:
-        dbstats: true
-        indexstats: true
-      serviceMonitor:
-        enabled: true
-        labels:
-          release: kube-prometheus-stack
+        cpu: "300m"
+        memory: "512Mi"
     nodeSelector:
       app: db
