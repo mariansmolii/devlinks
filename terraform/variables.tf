@@ -42,3 +42,9 @@ variable "external_secrets_sa_name" {
   description = "The name of the External Secrets service account."
   default     = "external-secrets-sa"
 }
+
+variable "gke_secrets" {
+  type        = map(string)
+  description = "A map of GKE secrets to be created. The keys are the names of the secrets, and the values are the secret data."
+  sensitive   = true
+}
