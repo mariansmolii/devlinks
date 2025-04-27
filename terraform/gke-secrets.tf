@@ -9,6 +9,8 @@ resource "google_secret_manager_secret" "secrets" {
   replication {
     auto {}
   }
+
+  depends_on = [google_project_service.api]
 }
 
 resource "google_secret_manager_secret_version" "secrets_version" {
