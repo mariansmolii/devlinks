@@ -22,3 +22,5 @@ docker-compose*
 
 .git
 .gitignore
+
+vercel.json
