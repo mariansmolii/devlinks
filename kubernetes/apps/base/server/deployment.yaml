@@ -24,5 +24,12 @@ spec:
           envFrom:
             - secretRef:
                 name: server-secrets
+          resources:
+            requests:
+              cpu: 10m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 256Mi
       nodeSelector:
         app: server
