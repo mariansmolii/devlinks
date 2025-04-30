@@ -19,7 +19,7 @@ This project uses a combination of tools and services to automate the deployment
 - **Terraform —** infrastructure as code for GKE on GCP.
 - **GitHub Actions —** CI/CD pipeline: test, build & push Docker images.
 - **FluxCD —** GitOps: applies new manifests from GitHub and manages new image releases.
-- **Sealed Secrets —** manages Kubernetes secrets securely via Git.
+- **External Secrets + GCP Secret Manager —** secure secret management.
 - **ExternalDNS + Cloudflare —** automated DNS record management..
 - **Cert-Manager + Let’s Encrypt —** automated TLS certificates.
 - **Database —** MongoDB deployed via the Bitnami Helm Chart.
@@ -133,12 +133,20 @@ Provision the Kubernetes cluster using Terraform.
 Create a file named `terraform.tfvars` and fill in your values:
 
 ```hcl
-project_id        = "your-gcp-project-id"
-region            = "your-gcp-region"
-zone              = "your-gcp-zone"
-subnet_cidr_range = "10.0.0.0/20"    # or customize
-machine_type      = "e2-medium"      # or customize
-disk_size_gb      = 30               # or customize
+project_id               = "your-gcp-project-id"
+region                   = "your-gcp-region"
+zone                     = "your-gcp-zone"
+subnet_cidr_range        = "10.0.0.0/20"           # optional, default provided
+machine_type             = "e2-medium"             # optional, default provided
+disk_size_gb             = 30                      # optional, default provided
+external_secrets_ns      = "external-secrets"      # optional, default provided
+external_secrets_sa_name = "external-secrets-sa"   # optional, default provided
+
+gke_secrets = {
+  "your-secret-name-1" = "your-secret-value-1"
+  "your-secret-name-2" = "your-secret-value-2"
+  # Add more secrets as needed
+}
 ```
 
 ### Deploy Cluster
