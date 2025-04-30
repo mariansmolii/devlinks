@@ -9,3 +9,10 @@ configMapGenerator:
     options:
       labels:
         grafana_dashboard: "1"
+  - name: ingress-nginx-grafana-dashboard
+    namespace: monitoring
+    files:
+      - dashboards/ingress-nginx.json
+    options:
+      labels:
+        grafana_dashboard: "1"
