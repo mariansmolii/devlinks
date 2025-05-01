@@ -37,7 +37,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 37,
+  "id": 28,
   "links": [],
   "panels": [
     {
@@ -1168,12 +1168,56 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 36,
+      "options": {
+        "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "{job=\"ingress-nginx/ingress-nginx\"}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Ingress Logs",
+      "type": "logs"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 24
       },
       "id": 33,
       "panels": [],
@@ -1397,7 +1441,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 13
+        "y": 25
       },
       "id": 29,
       "options": {
@@ -1522,7 +1566,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 13
+        "y": 25
       },
       "id": 27,
       "options": {
@@ -1589,7 +1633,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 33
       },
       "id": 35,
       "panels": [],
@@ -1690,7 +1734,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 34
       },
       "id": 5,
       "options": {
@@ -1819,7 +1863,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 34
       },
       "id": 22,
       "options": {
@@ -1859,7 +1903,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 42
       },
       "id": 24,
       "panels": [],
@@ -1931,7 +1975,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 43
       },
       "id": 25,
       "options": {
@@ -2031,7 +2075,7 @@
         "h": 13,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 52
       },
       "id": 16,
       "options": {
@@ -2203,5 +2247,5 @@
   "timezone": "",
   "title": "Nginx Ingress",
   "uid": "k8s-nginx-ingress-prometheus-ng",
-  "version": 2
+  "version": 1
 }
