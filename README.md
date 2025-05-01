@@ -24,7 +24,8 @@ This project uses a combination of tools and services to automate the deployment
 - **Cert-Manager + Let’s Encrypt —** automated TLS certificates.
 - **Database —** MongoDB deployed via the Bitnami Helm Chart.
 - **Ingress —** for routing external traffic.
-- **Prometheus + Grafana —** monitoring stack, with custom MongoDB dashboard.
+- **Prometheus + Grafana —** monitoring stack, with custom MongoDB and Ingress dashboards.
+- **Loki + Promtail —** centralized logging for Ingress and other components.
 - **Docker Compose —** for local development.
 
 ## Project Structure
