@@ -34,6 +34,9 @@ spec:
         existingSecret: grafana-admin-credentials
         userKey: admin-user
         passwordKey: admin-password
+      serviceMonitor:
+        labels:
+          release: kube-prometheus-stack
       sidecar:
         dashboards:
           enabled: true
