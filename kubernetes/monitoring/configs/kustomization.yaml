@@ -16,3 +16,10 @@ configMapGenerator:
     options:
       labels:
         grafana_dashboard: "1"
+  - name: default-dashboards
+    namespace: monitoring
+    files:
+      - dashboards/node-exporter-aix.json
+    options:
+      labels:
+        grafana_dashboard: "1"
