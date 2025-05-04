@@ -28,6 +28,10 @@ spec:
             memory: 512Mi
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}
+        podMonitorNamespaceSelector: {}
+        podMonitorSelector:
+          matchLabels:
+            app.kubernetes.io/component: monitoring
     grafana:
       fullnameOverride: grafana
       admin:
