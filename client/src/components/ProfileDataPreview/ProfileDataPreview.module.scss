@@ -40,7 +40,7 @@
   }
 
   > .email {
-    width: 175px;
+    width: 161px;
     @include mx.font-size(14, 21);
     font-weight: 400;
     color: get-color("grey");
@@ -49,6 +49,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    &.hasNoName {
+      margin-top: 31px;
+    }
   }
 
   &.isPages {

@@ -2,6 +2,7 @@ import clsx from "clsx";
 import useShare from "../../hooks/useShare";
 import useProfile from "../../hooks/useProfile";
 import styles from "./ProfileDataPreview.module.scss";
+
 import { useLocation, useParams } from "react-router-dom";
 
 interface ProfileDataPreviewProps {
@@ -24,6 +25,8 @@ const ProfileDataPreview = ({
   const {
     profileImage: { previewImage, savedImage },
   } = useProfile();
+
+  const fullname = `${firstName} ${lastName}`;
 
   const isPages = ["/preview", `/share/${id}`].includes(pathname);
   const imageToShow =
@@ -48,8 +51,15 @@ const ProfileDataPreview = ({
       )}
 
       <ul className={clsx(styles.profileData, isPages && styles.isPages)}>
-        <li className={clsx(styles.name)}>{firstName + " " + lastName}</li>
-        <li className={styles.email}>{profileEmail}</li>
+        <li className={clsx(styles.name)}>{fullname}</li>
+        <li
+          className={clsx(
+            styles.email,
+            !fullname.trim() && !isPages && styles.hasNoName
+          )}
+        >
+          {profileEmail}
+        </li>
       </ul>
     </>
   );
