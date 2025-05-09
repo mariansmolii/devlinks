@@ -11,19 +11,31 @@ import MainLayout from "./layouts/MainLayout/MainLayout";
 import PublicRoute from "./guards/PublicRoute";
 import PrivateRoute from "./guards/PrivateRoute";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { useAppDispatch } from "./hooks/useRedux";
 import { getLinks } from "./store/link/linkOperations";
 import { currentUser } from "./store/auth/authOperations";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { getProfileInfo } from "./store/profile/profileOperations";
+import PageLoader from "./components/ui/Loader/PageLoader";
 
 const App = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
+  const [isReady, setIsReady] = useState(false);
 
   const paths = ["/", "/profile", "/preview"].includes(pathname);
+
+  useEffect(() => {
+    const handleLoad = () => setIsReady(true);
+    if (document.readyState === "complete") {
+      handleLoad();
+    } else {
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(currentUser());
@@ -35,6 +47,8 @@ const App = () => {
       dispatch(getProfileInfo());
     }
   }, [dispatch, paths]);
+
+  if (!isReady) return <PageLoader />;
 
   return (
     <>
