@@ -21,7 +21,7 @@ spec:
             name: devlinks-cm
       containers:
         - name: client
-          image: mariansmolii/devlinks-client:fde78d66705dde60a73c78a43806fbd8fa265004-120 # {"$imagepolicy": "flux-system:client"}
+          image: mariansmolii/devlinks-client:db780a48fbe0fc65fc3bc773b4e591a4fbf2beed-122 # {"$imagepolicy": "flux-system:client"}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
