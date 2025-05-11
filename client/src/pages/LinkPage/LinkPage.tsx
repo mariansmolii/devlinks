@@ -5,6 +5,7 @@ import Section from "../../components/Section/Section";
 import LinkForm from "../../components/LinkForm/LinkForm";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import showToast from "../../components/ui/CustomToast/showToast";
+import getSanitizedLinks from "../../utils/helpers/getSanitizedLinks";
 import HandleCatchError from "../../components/ui/HandleCatchError/HandleCatchError";
 import styles from "./LinkPage.module.scss";
 
@@ -60,19 +61,7 @@ const LinkPage = () => {
 
   const onSubmit = async () => {
     try {
-      const sanitizedLinks = links.map((link) => {
-        if (link._id?.length === 21) {
-          const { url, platform, index } = link;
-
-          return {
-            url,
-            platform,
-            index,
-          };
-        }
-
-        return link;
-      });
+      const sanitizedLinks = getSanitizedLinks(links);
 
       if (deletedLinkIds.length > 0) {
         await dispatch(removeLink({ linkIds: deletedLinkIds })).unwrap();
