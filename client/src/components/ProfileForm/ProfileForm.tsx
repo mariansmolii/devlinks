@@ -1,8 +1,6 @@
 import Label from "../ui/Label/Label";
-import Input from "../ui/Input/Input";
 import Button from "../ui/Button/Button";
 import BtnLoader from "../ui/Loader/BtnLoader";
-import ErrorMsg from "../ui/ErrorMsg/ErrorMsg";
 import useProfile from "../../hooks/useProfile";
 import showToast from "../ui/CustomToast/showToast";
 import ImageUploader from "../ImageUploader/ImageUploader";
@@ -18,7 +16,7 @@ import {
   profileSchema,
   validateImageFile,
 } from "../../utils/validations/profile";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   clearProfileImagePreview,
   setFormData,
@@ -28,6 +26,7 @@ import {
   updateProfileImage,
   updateProfileInfo,
 } from "../../store/profile/profileOperations";
+import ProfileField from "../ProfileField/ProfileField";
 
 const ProfileForm = () => {
   const dispatch = useAppDispatch();
@@ -134,97 +133,38 @@ const ProfileForm = () => {
       </ContentWrapper>
 
       <ContentWrapper className={styles.inputWrapper}>
-        <div>
-          <Label
-            id="firstName"
-            label="First name*"
-            error={errors.firstName?.message}
-          />
+        <ProfileField
+          name="firstName"
+          label="First name*"
+          placeholder="e.g. John"
+          control={control}
+          error={errors.firstName?.message}
+          dispatch={dispatch}
+          watch={watch}
+          setFormData={setFormData}
+        />
 
-          <Controller
-            name="firstName"
-            control={control}
-            render={({ field }) => (
-              <Input
-                id="firstName"
-                type="text"
-                {...field}
-                onChange={(e) => {
-                  field.onChange(e);
-                  dispatch(
-                    setFormData({ ...watch(), firstName: e.target.value })
-                  );
-                }}
-                placeholder="e.g. John"
-                error={errors.firstName?.message}
-              />
-            )}
-          />
+        <ProfileField
+          name="lastName"
+          label="Last name*"
+          placeholder="e.g. Appleseed"
+          control={control}
+          error={errors.lastName?.message}
+          dispatch={dispatch}
+          watch={watch}
+          setFormData={setFormData}
+        />
 
-          {errors.firstName && <ErrorMsg message={errors.firstName.message} />}
-        </div>
-
-        <div>
-          <Label
-            id="lastName"
-            label="Last name*"
-            error={errors.lastName?.message}
-          />
-
-          <Controller
-            name="lastName"
-            control={control}
-            render={({ field }) => (
-              <Input
-                id="lastName"
-                type="text"
-                {...field}
-                onChange={(e) => {
-                  field.onChange(e);
-                  dispatch(
-                    setFormData({ ...watch(), lastName: e.target.value })
-                  );
-                }}
-                placeholder="e.g. Appleseed"
-                error={errors.lastName?.message}
-              />
-            )}
-          />
-
-          {errors.lastName && <ErrorMsg message={errors.lastName.message} />}
-        </div>
-
-        <div>
-          <Label
-            id="profileEmail"
-            label="Email"
-            error={errors.profileEmail?.message}
-          />
-
-          <Controller
-            name="profileEmail"
-            control={control}
-            render={({ field }) => (
-              <Input
-                id="profileEmail"
-                type="text"
-                {...field}
-                onChange={(e) => {
-                  field.onChange(e);
-                  dispatch(
-                    setFormData({ ...watch(), profileEmail: e.target.value })
-                  );
-                }}
-                placeholder="e.g. email@example.com"
-                error={errors.profileEmail?.message}
-              />
-            )}
-          />
-
-          {errors.profileEmail && (
-            <ErrorMsg message={errors.profileEmail.message} />
-          )}
-        </div>
+        <ProfileField
+          name="profileEmail"
+          label="Email"
+          placeholder="e.g. email@example.com"
+          control={control}
+          error={errors.profileEmail?.message}
+          dispatch={dispatch}
+          watch={watch}
+          setFormData={setFormData}
+        />
       </ContentWrapper>
 
       <div className={styles.line} />
