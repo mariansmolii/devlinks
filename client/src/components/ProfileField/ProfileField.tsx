@@ -2,18 +2,22 @@ import Label from "../ui/Label/Label";
 import Input from "../ui/Input/Input";
 import ErrorMsg from "../ui/ErrorMsg/ErrorMsg";
 
-import { Controller } from "react-hook-form";
+import { z } from "zod";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { setFormData } from "../../store/profile/profileSlice";
+import { profileSchema } from "../../utils/validations/profile";
+import { Control, Controller, UseFormWatch } from "react-hook-form";
+
+type ProfileFormValues = z.infer<typeof profileSchema>;
 
 interface ProfileFieldProps {
   name: "firstName" | "lastName" | "profileEmail";
   label: string;
   placeholder: string;
-  control: any;
+  control: Control<ProfileFormValues>;
   error?: string;
   dispatch: ReturnType<typeof useAppDispatch>;
-  watch: any;
+  watch: UseFormWatch<ProfileFormValues>;
   setFormData: typeof setFormData;
 }
 
