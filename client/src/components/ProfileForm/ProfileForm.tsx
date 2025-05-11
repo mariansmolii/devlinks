@@ -11,7 +11,7 @@ import HandleCatchError from "../ui/HandleCatchError/HandleCatchError";
 import styles from "./ProfileForm.module.scss";
 
 import { z } from "zod";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -42,6 +42,7 @@ const ProfileForm = () => {
   const {
     handleSubmit,
     control,
+    reset,
     watch,
     formState: { errors },
   } = useForm<z.infer<typeof profileSchema>>({
@@ -52,12 +53,25 @@ const ProfileForm = () => {
       profileEmail,
     },
     mode: "onChange",
-    values: {
-      firstName,
-      lastName,
-      profileEmail,
-    },
   });
+
+  useEffect(() => {
+    if (firstName && lastName) {
+      reset({
+        firstName,
+        lastName,
+        profileEmail,
+      });
+
+      dispatch(
+        setFormData({
+          firstName,
+          lastName,
+          profileEmail,
+        })
+      );
+    }
+  }, [dispatch, firstName, lastName, profileEmail, reset]);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -226,7 +240,8 @@ const ProfileForm = () => {
             !firstName.trim() ||
             !lastName.trim() ||
             !!errors.firstName ||
-            !!errors.lastName
+            !!errors.lastName ||
+            !!errors.profileEmail
           }
         />
       </div>
