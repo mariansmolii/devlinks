@@ -24,7 +24,7 @@ const shareSlice = createSlice({
         state.lastName = payload.lastName;
         state.profileEmail = payload.profileEmail;
         state.profileImage = payload.profileImage;
-        state.links = payload.links;
+        state.links = payload.links.sort((a, b) => a.index - b.index);
       })
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),
