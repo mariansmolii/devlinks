@@ -25,6 +25,10 @@
     border-radius: var.$border-radius-xl;
   }
 
+  > li:last-of-type {
+    margin-bottom: 24px;
+  }
+
   @include mx.breakpoint(tablet) {
     height: 549px;
   }
