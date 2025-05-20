@@ -19,6 +19,18 @@ variable "subnet_cidr_range" {
   default     = "10.0.0.0/20"
 }
 
+variable "autoscaling_min_nodes" {
+  type        = number
+  description = "Minimum number of nodes for autoscaling"
+  default     = 1
+}
+
+variable "autoscaling_max_nodes" {
+  type        = number
+  description = "Maximum number of nodes for autoscaling"
+  default     = 3
+}
+
 variable "machine_type" {
   type        = string
   description = "node machine type"

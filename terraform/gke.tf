@@ -40,10 +40,15 @@ resource "google_container_cluster" "primary" {
 resource "google_container_node_pool" "primary_nodes" {
   for_each = local.node_pools
 
-  name       = "${each.key}-node-pool"
-  cluster    = google_container_cluster.primary.id
-  location   = google_container_cluster.primary.location
-  node_count = 1
+  name               = "${each.key}-node-pool"
+  cluster            = google_container_cluster.primary.id
+  location           = google_container_cluster.primary.location
+  initial_node_count = 1
+
+  autoscaling {
+    min_node_count = var.autoscaling_min_nodes
+    max_node_count = var.autoscaling_max_nodes
+  }
 
   management {
     auto_upgrade = true
