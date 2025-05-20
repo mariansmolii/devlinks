@@ -5,6 +5,7 @@ metadata:
   namespace: devlinks
 spec:
   interval: 30m
+  timeout: 15m
   releaseName: mongodb
   chartRef:
     kind: OCIRepository
