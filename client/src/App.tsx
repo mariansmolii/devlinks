@@ -1,3 +1,5 @@
+import "./services/axiosInterceptors";
+
 import LinkPage from "./pages/LinkPage/LinkPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SharePage from "./pages/SharePage/SharePage";
